@@ -1,0 +1,657 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5922BDDB12100D2D793 /* MettleApp.swift */; };
+		C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5942BDDB12100D2D793 /* HomeView.swift */; };
+		C72DF5972BDDB12300D2D793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72DF5962BDDB12300D2D793 /* Assets.xcassets */; };
+		C72DF59A2BDDB12300D2D793 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72DF5992BDDB12300D2D793 /* Preview Assets.xcassets */; };
+		C72DF5A42BDDB12300D2D793 /* MettleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5A32BDDB12300D2D793 /* MettleTests.swift */; };
+		C72DF5AE2BDDB12300D2D793 /* MettleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5AD2BDDB12300D2D793 /* MettleUITests.swift */; };
+		C72DF5B02BDDB12300D2D793 /* MettleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5AF2BDDB12300D2D793 /* MettleUITestsLaunchTests.swift */; };
+		C72DF5BD2BDDC33700D2D793 /* LiftType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5BC2BDDC33700D2D793 /* LiftType.swift */; };
+		C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */; };
+		C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5C02BDDC39400D2D793 /* Utilities.swift */; };
+		C72DF5C32BDDC4DD00D2D793 /* LiftEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */; };
+		C77E8B6D2BEAEC71006040E9 /* AddPRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */; };
+		C7A5AC882BF8033000123575 /* SplashPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC872BF8033000123575 /* SplashPageView.swift */; };
+		C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC892BFA93A000123575 /* AppState.swift */; };
+		C7A5AC8D2BFA954C00123575 /* AppContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC8C2BFA954C00123575 /* AppContainerView.swift */; };
+		C7A5AC8F2BFAC7D600123575 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */; };
+		C7B2B5CD2BE04002002F4F26 /* LiftOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B2B5CC2BE04002002F4F26 /* LiftOverviewView.swift */; };
+		C7E1C9B32BEDE27C006FC86E /* AddWeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C72DF5A02BDDB12300D2D793 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C72DF5872BDDB12100D2D793 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C72DF58E2BDDB12100D2D793;
+			remoteInfo = Mettle;
+		};
+		C72DF5AA2BDDB12300D2D793 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C72DF5872BDDB12100D2D793 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C72DF58E2BDDB12100D2D793;
+			remoteInfo = Mettle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C72DF58F2BDDB12100D2D793 /* Mettle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mettle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72DF5922BDDB12100D2D793 /* MettleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleApp.swift; sourceTree = "<group>"; };
+		C72DF5942BDDB12100D2D793 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C72DF5962BDDB12300D2D793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C72DF5992BDDB12300D2D793 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C72DF59F2BDDB12300D2D793 /* MettleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MettleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72DF5A32BDDB12300D2D793 /* MettleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleTests.swift; sourceTree = "<group>"; };
+		C72DF5A92BDDB12300D2D793 /* MettleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MettleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72DF5AD2BDDB12300D2D793 /* MettleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleUITests.swift; sourceTree = "<group>"; };
+		C72DF5AF2BDDB12300D2D793 /* MettleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C72DF5BC2BDDC33700D2D793 /* LiftType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftType.swift; sourceTree = "<group>"; };
+		C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftEntry.swift; sourceTree = "<group>"; };
+		C72DF5C02BDDC39400D2D793 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftEntryView.swift; sourceTree = "<group>"; };
+		C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPRView.swift; sourceTree = "<group>"; };
+		C7A5AC862BF802E800123575 /* Mettle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mettle.entitlements; sourceTree = "<group>"; };
+		C7A5AC872BF8033000123575 /* SplashPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SplashPageView.swift; path = Mettle/SplashPageView.swift; sourceTree = SOURCE_ROOT; };
+		C7A5AC892BFA93A000123575 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C7A5AC8C2BFA954C00123575 /* AppContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainerView.swift; sourceTree = "<group>"; };
+		C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
+		C7B2B5CC2BE04002002F4F26 /* LiftOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftOverviewView.swift; sourceTree = "<group>"; };
+		C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeightView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C72DF58C2BDDB12100D2D793 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF59C2BDDB12300D2D793 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF5A62BDDB12300D2D793 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C72DF5862BDDB12100D2D793 = {
+			isa = PBXGroup;
+			children = (
+				C72DF5912BDDB12100D2D793 /* Mettle */,
+				C72DF5A22BDDB12300D2D793 /* MettleTests */,
+				C72DF5AC2BDDB12300D2D793 /* MettleUITests */,
+				C72DF5902BDDB12100D2D793 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C72DF5902BDDB12100D2D793 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C72DF58F2BDDB12100D2D793 /* Mettle.app */,
+				C72DF59F2BDDB12300D2D793 /* MettleTests.xctest */,
+				C72DF5A92BDDB12300D2D793 /* MettleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C72DF5912BDDB12100D2D793 /* Mettle */ = {
+			isa = PBXGroup;
+			children = (
+				C7A5AC8B2BFA93B000123575 /* Authentication */,
+				C7A5AC862BF802E800123575 /* Mettle.entitlements */,
+				C7A5AC8C2BFA954C00123575 /* AppContainerView.swift */,
+				C7A5AC872BF8033000123575 /* SplashPageView.swift */,
+				C72DF5922BDDB12100D2D793 /* MettleApp.swift */,
+				C72DF5942BDDB12100D2D793 /* HomeView.swift */,
+				C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */,
+				C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */,
+				C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */,
+				C7B2B5CC2BE04002002F4F26 /* LiftOverviewView.swift */,
+				C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */,
+				C72DF5C02BDDC39400D2D793 /* Utilities.swift */,
+				C7B2B5CB2BE0010E002F4F26 /* Models */,
+				C72DF5962BDDB12300D2D793 /* Assets.xcassets */,
+				C72DF5982BDDB12300D2D793 /* Preview Content */,
+			);
+			path = Mettle;
+			sourceTree = "<group>";
+		};
+		C72DF5982BDDB12300D2D793 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C72DF5992BDDB12300D2D793 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C72DF5A22BDDB12300D2D793 /* MettleTests */ = {
+			isa = PBXGroup;
+			children = (
+				C72DF5A32BDDB12300D2D793 /* MettleTests.swift */,
+			);
+			path = MettleTests;
+			sourceTree = "<group>";
+		};
+		C72DF5AC2BDDB12300D2D793 /* MettleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C72DF5AD2BDDB12300D2D793 /* MettleUITests.swift */,
+				C72DF5AF2BDDB12300D2D793 /* MettleUITestsLaunchTests.swift */,
+			);
+			path = MettleUITests;
+			sourceTree = "<group>";
+		};
+		C7A5AC8B2BFA93B000123575 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C7A5AC892BFA93A000123575 /* AppState.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		C7B2B5CB2BE0010E002F4F26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */,
+				C72DF5BC2BDDC33700D2D793 /* LiftType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C72DF58E2BDDB12100D2D793 /* Mettle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C72DF5B32BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "Mettle" */;
+			buildPhases = (
+				C72DF58B2BDDB12100D2D793 /* Sources */,
+				C72DF58C2BDDB12100D2D793 /* Frameworks */,
+				C72DF58D2BDDB12100D2D793 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mettle;
+			productName = Mettle;
+			productReference = C72DF58F2BDDB12100D2D793 /* Mettle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C72DF59E2BDDB12300D2D793 /* MettleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C72DF5B62BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "MettleTests" */;
+			buildPhases = (
+				C72DF59B2BDDB12300D2D793 /* Sources */,
+				C72DF59C2BDDB12300D2D793 /* Frameworks */,
+				C72DF59D2BDDB12300D2D793 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C72DF5A12BDDB12300D2D793 /* PBXTargetDependency */,
+			);
+			name = MettleTests;
+			productName = MettleTests;
+			productReference = C72DF59F2BDDB12300D2D793 /* MettleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C72DF5A82BDDB12300D2D793 /* MettleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C72DF5B92BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "MettleUITests" */;
+			buildPhases = (
+				C72DF5A52BDDB12300D2D793 /* Sources */,
+				C72DF5A62BDDB12300D2D793 /* Frameworks */,
+				C72DF5A72BDDB12300D2D793 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C72DF5AB2BDDB12300D2D793 /* PBXTargetDependency */,
+			);
+			name = MettleUITests;
+			productName = MettleUITests;
+			productReference = C72DF5A92BDDB12300D2D793 /* MettleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C72DF5872BDDB12100D2D793 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					C72DF58E2BDDB12100D2D793 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					C72DF59E2BDDB12300D2D793 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = C72DF58E2BDDB12100D2D793;
+					};
+					C72DF5A82BDDB12300D2D793 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = C72DF58E2BDDB12100D2D793;
+					};
+				};
+			};
+			buildConfigurationList = C72DF58A2BDDB12100D2D793 /* Build configuration list for PBXProject "Mettle" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C72DF5862BDDB12100D2D793;
+			productRefGroup = C72DF5902BDDB12100D2D793 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C72DF58E2BDDB12100D2D793 /* Mettle */,
+				C72DF59E2BDDB12300D2D793 /* MettleTests */,
+				C72DF5A82BDDB12300D2D793 /* MettleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C72DF58D2BDDB12100D2D793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C72DF59A2BDDB12300D2D793 /* Preview Assets.xcassets in Resources */,
+				C72DF5972BDDB12300D2D793 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF59D2BDDB12300D2D793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF5A72BDDB12300D2D793 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C72DF58B2BDDB12100D2D793 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7A5AC8D2BFA954C00123575 /* AppContainerView.swift in Sources */,
+				C77E8B6D2BEAEC71006040E9 /* AddPRView.swift in Sources */,
+				C72DF5C32BDDC4DD00D2D793 /* LiftEntryView.swift in Sources */,
+				C7A5AC882BF8033000123575 /* SplashPageView.swift in Sources */,
+				C7A5AC8F2BFAC7D600123575 /* AddNoteView.swift in Sources */,
+				C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */,
+				C7B2B5CD2BE04002002F4F26 /* LiftOverviewView.swift in Sources */,
+				C7E1C9B32BEDE27C006FC86E /* AddWeightView.swift in Sources */,
+				C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */,
+				C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */,
+				C72DF5BD2BDDC33700D2D793 /* LiftType.swift in Sources */,
+				C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */,
+				C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF59B2BDDB12300D2D793 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C72DF5A42BDDB12300D2D793 /* MettleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72DF5A52BDDB12300D2D793 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C72DF5AE2BDDB12300D2D793 /* MettleUITests.swift in Sources */,
+				C72DF5B02BDDB12300D2D793 /* MettleUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C72DF5A12BDDB12300D2D793 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C72DF58E2BDDB12100D2D793 /* Mettle */;
+			targetProxy = C72DF5A02BDDB12300D2D793 /* PBXContainerItemProxy */;
+		};
+		C72DF5AB2BDDB12300D2D793 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C72DF58E2BDDB12100D2D793 /* Mettle */;
+			targetProxy = C72DF5AA2BDDB12300D2D793 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C72DF5B12BDDB12300D2D793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C72DF5B22BDDB12300D2D793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C72DF5B42BDDB12300D2D793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mettle/Mettle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mettle/Preview Content\"";
+				DEVELOPMENT_TEAM = 826245N2M8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.Mettle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C72DF5B52BDDB12300D2D793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mettle/Mettle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mettle/Preview Content\"";
+				DEVELOPMENT_TEAM = 826245N2M8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.Mettle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C72DF5B72BDDB12300D2D793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 826245N2M8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.MettleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mettle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mettle";
+			};
+			name = Debug;
+		};
+		C72DF5B82BDDB12300D2D793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 826245N2M8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.MettleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mettle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mettle";
+			};
+			name = Release;
+		};
+		C72DF5BA2BDDB12300D2D793 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 826245N2M8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.MettleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mettle;
+			};
+			name = Debug;
+		};
+		C72DF5BB2BDDB12300D2D793 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 826245N2M8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noff.MettleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mettle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C72DF58A2BDDB12100D2D793 /* Build configuration list for PBXProject "Mettle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C72DF5B12BDDB12300D2D793 /* Debug */,
+				C72DF5B22BDDB12300D2D793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C72DF5B32BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "Mettle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C72DF5B42BDDB12300D2D793 /* Debug */,
+				C72DF5B52BDDB12300D2D793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C72DF5B62BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "MettleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C72DF5B72BDDB12300D2D793 /* Debug */,
+				C72DF5B82BDDB12300D2D793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C72DF5B92BDDB12300D2D793 /* Build configuration list for PBXNativeTarget "MettleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C72DF5BA2BDDB12300D2D793 /* Debug */,
+				C72DF5BB2BDDB12300D2D793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C72DF5872BDDB12100D2D793 /* Project object */;
+}
