@@ -17,6 +17,7 @@ struct ChartData: Identifiable {
 
 struct HomeView: View {
   @State private var searchText = ""
+  @State private var showSettingsModal = false
 
   let specificLifts: [LiftEntry] = [
     LiftEntry(liftType: .backSquat, date: dates[0], weight: weights[0]),
@@ -113,6 +114,24 @@ struct HomeView: View {
           .padding(.horizontal)
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your lifts")
+        .toolbar {
+          
+          ToolbarItem(placement: .navigationBarTrailing) {
+              Button(action: {
+                  showSettingsModal = true
+              }) {
+                ZStack {
+                  Image(systemName: "person.fill")
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                      .foregroundColor(Color("Primary"))
+                }
+                .frame(width: 32, height: 32)
+                .background(Color(hex: "E6E1E3"))
+                .cornerRadius(20)
+              }
+          }
+      }
       }
       VStack {
         Spacer()
@@ -128,6 +147,10 @@ struct HomeView: View {
         .frame(maxWidth: .infinity)
         .background(Color(.secondarySystemBackground))
       }
+    }
+    .sheet(isPresented: $showSettingsModal) {
+      // Replace with your modal view
+      SettingsView()
     }
   }
 }
@@ -222,7 +245,7 @@ struct LiftTileView: View {
           Spacer()
         }
         HStack {
-          Text("225 Lbs.")
+          Text("225 lbs.")
             .font(.system(size: 28, weight: .semibold, design: .rounded))
             .foregroundColor(Color("Primary"))
           Spacer()
@@ -276,11 +299,10 @@ struct LiftTileView: View {
     .frame(height: 114)
     .padding(16)
     .background(Color.white)
-    .cornerRadius(10)
-    
-    .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 4)
+    .cornerRadius(20)
+    .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 4)
     .overlay(
-      RoundedRectangle(cornerRadius: 10)
+      RoundedRectangle(cornerRadius: 20)
         .inset(by: 0.25) // Adjust by half of the stroke line width
         .stroke(Color.black.opacity(0.15), lineWidth: 0.5)
     )

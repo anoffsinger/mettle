@@ -23,8 +23,6 @@ struct AddWeightView: View {
     VStack {
       VStack (spacing: -8) {
         ZStack {
-
-
             TextField(
               "",
               text: $textFieldValue
@@ -69,7 +67,7 @@ struct AddWeightView: View {
                   )
               )
           }
-          Text("lbs.")
+          Text(kgViewEnabled ? "kgs." : "lbs.")
 
             .font(.system(size: 32, weight: .semibold, design: .rounded))
             .foregroundColor(.clear)
@@ -80,7 +78,7 @@ struct AddWeightView: View {
                     endPoint: .bottom
                 )
                 .mask(
-                    Text("lbs.")
+                    Text(kgViewEnabled ? "kgs." : "lbs.")
                         .font(.system(size: 32, weight: .semibold, design: .rounded))
                         .multilineTextAlignment(.center)
                 )
@@ -128,12 +126,12 @@ struct AddWeightView: View {
       }
       .frame(maxHeight: .infinity)
       Button(action: {
-        if let value = Double(textFieldValue), value > oldPR {
-          self.continueButtonTapped = true
-          self.showError = false
-        } else {
-          self.showError = true
-        }
+        if let value = Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)), value > oldPR {
+                self.continueButtonTapped = true
+                self.showError = false
+            } else {
+                self.showError = true
+            }
       }) {
         Text("Continue")
           .font(.system(size: 17, weight: .bold))
@@ -155,9 +153,13 @@ struct AddWeightView: View {
           .stroke(weightIsPR ? Color.black.opacity(0.1) : Color.black.opacity(0.02), lineWidth: 2)
       )
       // Hidden NavigationLink that triggers navigation
-      NavigationLink(destination: AddNoteView(), isActive: $continueButtonTapped) {
-        EmptyView()
+      NavigationLink(
+          destination: AddNoteView(newPRWeight: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0),
+          isActive: $continueButtonTapped
+      ) {
+          EmptyView()
       }
+
     }
     .padding(.horizontal, 16)
     .padding(.bottom, 16)

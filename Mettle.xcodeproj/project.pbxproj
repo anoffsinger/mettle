@@ -18,6 +18,7 @@
 		C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */; };
 		C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5C02BDDC39400D2D793 /* Utilities.swift */; };
 		C72DF5C32BDDC4DD00D2D793 /* LiftEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */; };
+		C75D019B2BFFFB6A00B0012A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D019A2BFFFB6A00B0012A /* SettingsView.swift */; };
 		C77E8B6D2BEAEC71006040E9 /* AddPRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */; };
 		C7A5AC882BF8033000123575 /* SplashPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC872BF8033000123575 /* SplashPageView.swift */; };
 		C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5AC892BFA93A000123575 /* AppState.swift */; };
@@ -59,6 +60,7 @@
 		C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftEntry.swift; sourceTree = "<group>"; };
 		C72DF5C02BDDC39400D2D793 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftEntryView.swift; sourceTree = "<group>"; };
+		C75D019A2BFFFB6A00B0012A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPRView.swift; sourceTree = "<group>"; };
 		C7A5AC862BF802E800123575 /* Mettle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mettle.entitlements; sourceTree = "<group>"; };
 		C7A5AC872BF8033000123575 /* SplashPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SplashPageView.swift; path = Mettle/SplashPageView.swift; sourceTree = SOURCE_ROOT; };
@@ -123,6 +125,7 @@
 				C7A5AC872BF8033000123575 /* SplashPageView.swift */,
 				C72DF5922BDDB12100D2D793 /* MettleApp.swift */,
 				C72DF5942BDDB12100D2D793 /* HomeView.swift */,
+				C75D019A2BFFFB6A00B0012A /* SettingsView.swift */,
 				C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */,
 				C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */,
 				C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */,
@@ -315,6 +318,7 @@
 				C7A5AC8F2BFAC7D600123575 /* AddNoteView.swift in Sources */,
 				C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */,
 				C7B2B5CD2BE04002002F4F26 /* LiftOverviewView.swift in Sources */,
+				C75D019B2BFFFB6A00B0012A /* SettingsView.swift in Sources */,
 				C7E1C9B32BEDE27C006FC86E /* AddWeightView.swift in Sources */,
 				C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */,
 				C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */,
