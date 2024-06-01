@@ -22,15 +22,15 @@ let dates = (0..<weights.count).map { index in
 struct LiftOverviewView: View {
 
   let lifts: [LiftEntry] = [
-      LiftEntry(liftType: .backSquat, date: dates[0], weight: weights[0]),
-      LiftEntry(liftType: .backSquat, date: dates[1], weight: weights[1]),
-      LiftEntry(liftType: .backSquat, date: dates[2], weight: weights[2]),
-      LiftEntry(liftType: .backSquat, date: dates[3], weight: weights[3]),
-      LiftEntry(liftType: .backSquat, date: dates[4], weight: weights[4]),
-      LiftEntry(liftType: .backSquat, date: dates[5], weight: weights[5]),
-      LiftEntry(liftType: .backSquat, date: dates[6], weight: weights[6]),
-      LiftEntry(liftType: .backSquat, date: dates[7], weight: weights[7]),
-      LiftEntry(liftType: .backSquat, date: dates[8], weight: weights[8])
+    LiftEntry(liftType: .backSquat, date: dates[0], weight: weights[0], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[1], weight: weights[1], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[2], weight: weights[2], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[3], weight: weights[3], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[4], weight: weights[4], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[5], weight: weights[5], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[6], weight: weights[6], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[7], weight: weights[7], note: "A nice note"),
+    LiftEntry(liftType: .backSquat, date: dates[8], weight: weights[8], note: "A nice note")
   ]
 
 

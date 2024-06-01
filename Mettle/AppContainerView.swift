@@ -20,10 +20,10 @@ struct AppContainerView: View {
               }
           }
           .environmentObject(appState)
-          .onAppear {
-            // Using this to debug authentication
-            printUserDefaults()
-          }
+//          .onAppear {
+//            // Using this to debug authentication
+//            printUserDefaults()
+//          }
       }
 }
 

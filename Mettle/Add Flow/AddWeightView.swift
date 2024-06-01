@@ -16,6 +16,8 @@ struct AddWeightView: View {
   @State private var showError: Bool = false
   @State private var kgViewEnabled: Bool = false
   @State private var weightIsPR: Bool = false
+    @Binding var needsRefresh: Bool
+    
 
   @FocusState private var isTextFieldFocused: Bool
 
@@ -153,19 +155,18 @@ struct AddWeightView: View {
           .stroke(weightIsPR ? Color.black.opacity(0.1) : Color.black.opacity(0.02), lineWidth: 2)
       )
       // Hidden NavigationLink that triggers navigation
-      NavigationLink(
-          destination: AddNoteView(newPRWeight: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0),
-          isActive: $continueButtonTapped
-      ) {
-          EmptyView()
-      }
+        NavigationLink(
+            destination: AddNoteView(newPRWeight: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0, needsRefresh: $needsRefresh, liftType: liftType, oldPR: oldPR),
+            isActive: $continueButtonTapped
+        ) {
+            EmptyView()
+        }
 
     }
     .padding(.horizontal, 16)
     .padding(.bottom, 16)
     .navigationTitle("New \(liftType.description) PR")
     .navigationBarTitleDisplayMode(.inline)
-    .interactiveDismissDisabled(true)
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {
         Toggle(isOn: $kgViewEnabled) {
@@ -206,6 +207,6 @@ struct AddWeightView: View {
 }
 
 #Preview {
-  AddWeightView(liftType: .bench)
+    AddWeightView(liftType: .bench, needsRefresh: .constant(false))
 }
 

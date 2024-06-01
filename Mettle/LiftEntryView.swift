@@ -30,5 +30,5 @@ struct LiftEntryView: View {
 }
 
 #Preview {
-  LiftEntryView(liftEntry: LiftEntry(liftType: .bench, date: Date(), weight: 1000000.00))
+    LiftEntryView(liftEntry: LiftEntry(liftType: .bench, date: Date(), weight: 1000000.00, note: "A nice note"))
 }

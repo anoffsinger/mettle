@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AddPRView: View {
-  @State private var searchText = ""
+    @Binding var needsRefresh: Bool
+    @State private var searchText = ""
   var body: some View {
 
     let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
@@ -25,7 +26,7 @@ struct AddPRView: View {
       ScrollView {
         LazyVGrid(columns: columns, spacing: 8) {
           ForEach(filteredLiftTypes, id: \.self) { liftType in
-            NavigationLink(destination: AddWeightView(liftType: liftType)) {
+              NavigationLink(destination: AddWeightView(liftType: liftType, needsRefresh: $needsRefresh)) {
               VStack {
                 Text(liftType.description)
                   .font(.headline)
@@ -46,11 +47,11 @@ struct AddPRView: View {
   }
 
   // Dismiss the modal
-  @Environment(\.dismiss) var dismiss
+//  @Environment(\.dismiss) var dismiss
 }
 
 #Preview {
-  AddPRView()
+    AddPRView(needsRefresh: .constant(false))
 }
 
 struct Tile: Identifiable {

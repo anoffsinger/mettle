@@ -7,27 +7,27 @@
 
 import Foundation
 
-enum LiftType: CaseIterable {
-  case backSquat
-  case frontSquat
-  case overHeadSquat
+enum LiftType: String, Codable, CaseIterable {
+  case backSquat = "Back Squat"
+  case frontSquat = "Front Squat"
+  case overHeadSquat = "Overhead Squat"
 
-  case squatSnatch
-  case powerSnatch
-  case hangPowerSnatch
+  case squatSnatch = "Squat Snatch"
+  case powerSnatch = "Power Snatch"
+  case hangPowerSnatch = "Hang Power Snatch"
 
-  case squatClean
-  case powerClean
-  case hangPowerClean
+  case squatClean = "Squat Clean"
+  case powerClean = "Power Clean"
+  case hangPowerClean = "Hang Power Clean"
 
-  case strictPress
-  case pushPress
-  case pushJerk
-  case splitJerk
+  case strictPress = "Strict PRess"
+  case pushPress = "Push Press"
+  case pushJerk = "Push Jerk"
+  case splitJerk = "Split Jerk"
 
-  case thruster
-  case deadlift
-  case bench
+  case thruster = "Thruster"
+  case deadlift = "Deadlift"
+  case bench = "Bench"
 
   var description: String {
     switch self {

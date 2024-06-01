@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct AddNoteView: View {
+    @Environment(\.presentationMode) var presentationMode
   let newPRWeight: Double
   @State private var textFieldValue: String = ""
   @State private var finishButtonTapped: Bool = false
-
   @FocusState private var isTextFieldFocused: Bool
+//    @Environment(\.dismiss) var dismiss
+    @Binding var needsRefresh: Bool
+    
+    let liftType: LiftType
+    let oldPR: Double
 
   var body: some View {
     VStack {
@@ -42,7 +47,7 @@ struct AddNoteView: View {
         }
       }
       Button(action: {
-
+saveLiftEntryAndDismiss()
       }) {
         Text("Finish")
           .font(.system(size: 17, weight: .bold))
@@ -64,22 +69,32 @@ struct AddNoteView: View {
           .stroke(Color.black.opacity(0.1), lineWidth: 2)
       )
       // Hidden NavigationLink that triggers navigation
-      NavigationLink(
-        destination: AddNoteView(newPRWeight: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0),
-        isActive: $finishButtonTapped
-      ) {
-        EmptyView()
-      }
+      
     }
     .frame(maxHeight: .infinity)
     .padding(.horizontal, 16)
     .padding(.bottom, 16)
     .navigationBarTitleDisplayMode(.inline)
-    .interactiveDismissDisabled(true)
+//    .interactiveDismissDisabled(true)
     .navigationTitle("\(newPRWeight)")
   }
+    
+    private func saveLiftEntryAndDismiss() {
+            let liftEntry = LiftEntry(liftType: .backSquat, date: Date(), weight: newPRWeight, note: textFieldValue)
+            CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
+                switch result {
+                case .success:
+                    needsRefresh = true
+                    DispatchQueue.main.async {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                case .failure(let error):
+                    print("Error saving entry: \(error)")
+                }
+            }
+        }
 }
 
 #Preview {
-  AddNoteView(newPRWeight: 225.0)
+    AddNoteView(newPRWeight: 225.0, needsRefresh: .constant(false), liftType: .bench, oldPR: 200.0)
 }

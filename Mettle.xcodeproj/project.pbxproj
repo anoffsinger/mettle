@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */; };
 		C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5922BDDB12100D2D793 /* MettleApp.swift */; };
 		C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5942BDDB12100D2D793 /* HomeView.swift */; };
 		C72DF5972BDDB12300D2D793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72DF5962BDDB12300D2D793 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		C72DF58F2BDDB12100D2D793 /* Mettle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mettle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72DF5922BDDB12100D2D793 /* MettleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleApp.swift; sourceTree = "<group>"; };
 		C72DF5942BDDB12100D2D793 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		851E81622C06821500DD7AF2 /* Add Flow */ = {
+			isa = PBXGroup;
+			children = (
+				C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */,
+				C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */,
+				C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */,
+			);
+			path = "Add Flow";
+			sourceTree = "<group>";
+		};
 		C72DF5862BDDB12100D2D793 = {
 			isa = PBXGroup;
 			children = (
@@ -126,9 +138,7 @@
 				C72DF5922BDDB12100D2D793 /* MettleApp.swift */,
 				C72DF5942BDDB12100D2D793 /* HomeView.swift */,
 				C75D019A2BFFFB6A00B0012A /* SettingsView.swift */,
-				C77E8B6C2BEAEC71006040E9 /* AddPRView.swift */,
-				C7E1C9B22BEDE27C006FC86E /* AddWeightView.swift */,
-				C7A5AC8E2BFAC7D600123575 /* AddNoteView.swift */,
+				851E81622C06821500DD7AF2 /* Add Flow */,
 				C7B2B5CC2BE04002002F4F26 /* LiftOverviewView.swift */,
 				C72DF5C22BDDC4DD00D2D793 /* LiftEntryView.swift */,
 				C72DF5C02BDDC39400D2D793 /* Utilities.swift */,
@@ -176,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */,
+				851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */,
 				C72DF5BC2BDDC33700D2D793 /* LiftType.swift */,
 			);
 			path = Models;
@@ -325,6 +336,7 @@
 				C72DF5BD2BDDC33700D2D793 /* LiftType.swift in Sources */,
 				C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */,
 				C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */,
+				851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

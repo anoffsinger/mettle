@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct LiftEntry: Hashable {
-  let liftType: LiftType
-  let date: Date
-  let weight: Double
+struct LiftEntry: Codable, Identifiable, Hashable {
+    let id = UUID()
+    let liftType: LiftType
+    let date: Date
+    let weight: Double
+    let note: String?
 }
