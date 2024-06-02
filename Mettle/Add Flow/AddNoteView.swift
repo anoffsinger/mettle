@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct AddNoteView: View {
-    @Environment(\.presentationMode) var presentationMode
   let newPRWeight: Double
   @State private var textFieldValue: String = ""
   @State private var finishButtonTapped: Bool = false
   @FocusState private var isTextFieldFocused: Bool
-//    @Environment(\.dismiss) var dismiss
-    @Binding var needsRefresh: Bool
-    
-    let liftType: LiftType
-    let oldPR: Double
-
+  @Binding var needsRefresh: Bool
+  @Binding var addingPR: Bool
+  let liftType: LiftType
+  let oldPR: Double
+  
   var body: some View {
     VStack {
       ZStack {
@@ -47,7 +45,7 @@ struct AddNoteView: View {
         }
       }
       Button(action: {
-saveLiftEntryAndDismiss()
+        saveLiftEntryAndDismiss()
       }) {
         Text("Finish")
           .font(.system(size: 17, weight: .bold))
@@ -68,33 +66,28 @@ saveLiftEntryAndDismiss()
           .inset(by: 1) // Adjust by half of the stroke line width
           .stroke(Color.black.opacity(0.1), lineWidth: 2)
       )
-      // Hidden NavigationLink that triggers navigation
-      
     }
     .frame(maxHeight: .infinity)
     .padding(.horizontal, 16)
     .padding(.bottom, 16)
     .navigationBarTitleDisplayMode(.inline)
-//    .interactiveDismissDisabled(true)
-    .navigationTitle("\(newPRWeight)")
+    .navigationTitle("\(liftType.description)")
   }
-    
-    private func saveLiftEntryAndDismiss() {
-            let liftEntry = LiftEntry(liftType: .backSquat, date: Date(), weight: newPRWeight, note: textFieldValue)
-            CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
-                switch result {
-                case .success:
-                    needsRefresh = true
-                    DispatchQueue.main.async {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                case .failure(let error):
-                    print("Error saving entry: \(error)")
-                }
-            }
-        }
+  
+  private func saveLiftEntryAndDismiss() {
+    let liftEntry = LiftEntry(liftType: liftType, date: Date(), weight: newPRWeight, note: textFieldValue)
+    CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
+      switch result {
+      case .success:
+        needsRefresh = true
+        addingPR = false
+      case .failure(let error):
+        print("Error saving entry: \(error)")
+      }
+    }
+  }
 }
 
 #Preview {
-    AddNoteView(newPRWeight: 225.0, needsRefresh: .constant(false), liftType: .bench, oldPR: 200.0)
+  AddNoteView(newPRWeight: 225.0, needsRefresh: .constant(false), addingPR: .constant(false), liftType: .bench, oldPR: 200.0)
 }
