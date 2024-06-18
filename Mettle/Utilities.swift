@@ -21,11 +21,29 @@ extension Date {
     }
 }
 
+//extension Double {
+//    var formattedWeight: String {
+//        return String(format: "%.1f kg", self) // Adjust format as needed
+//    }
+//}
+
 extension Double {
-    var formattedWeight: String {
-        return String(format: "%.1f kg", self) // Adjust format as needed
+    func formattedWeight(displayInKilograms: Bool) -> String {
+        let weight = displayInKilograms ? self * 0.453592 : self
+        let unit = displayInKilograms ? "kg" : "lbs"
+        let formattedWeight: String
+        
+        if weight.truncatingRemainder(dividingBy: 1) == 0 {
+            formattedWeight = String(format: "%.0f %@", weight, unit)
+        } else {
+            formattedWeight = String(format: "%.2f %@", weight, unit)
+        }
+        
+        return formattedWeight
     }
 }
+
+
 
 extension Color {
     init(hex: String) {
@@ -81,6 +99,27 @@ func poundsToKilograms(pounds: Double) -> Double {
     return pounds * 0.453592
 }
 
+func kilogramsToPounds(kilograms: Double) -> Double {
+    return kilograms * 2.20462
+}
+
+func formattedWeight(_ weight: Double) -> String {
+    let formattedString = String(format: "%.2f", weight)
+    if formattedString.hasSuffix(".00") {
+      return String(format: "%.0f", weight)
+    } else {
+      return formattedString
+    }
+  }
+
+// Global date formatter
+let itemFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+  formatter.dateStyle = .medium
+    formatter.timeStyle = .none
+    return formatter
+}()
+
 func printUserDefaults() {
     let defaults = UserDefaults.standard
     let dictionary = defaults.dictionaryRepresentation()
@@ -89,31 +128,3 @@ func printUserDefaults() {
         print("\(key): \(value)")
     }
 }
-
-// Manually create data for each lift type
-//let benchEntries: [LiftEntry] = [
-//    LiftEntry(liftType: .bench, date: randomDateWithinPastYear(), weight: 225),
-//    LiftEntry(liftType: .bench, date: randomDateWithinPastYear(), weight: 240),
-//    LiftEntry(liftType: .bench, date: randomDateWithinPastYear(), weight: 260),
-//    LiftEntry(liftType: .bench, date: randomDateWithinPastYear(), weight: 280),
-//    LiftEntry(liftType: .bench, date: randomDateWithinPastYear(), weight: 300)
-//]
-//
-//let squatEntries: [LiftEntry] = [
-//    LiftEntry(liftType: .squat, date: randomDateWithinPastYear(), weight: 300),
-//    LiftEntry(liftType: .squat, date: randomDateWithinPastYear(), weight: 320),
-//    LiftEntry(liftType: .squat, date: randomDateWithinPastYear(), weight: 340),
-//    LiftEntry(liftType: .squat, date: randomDateWithinPastYear(), weight: 360),
-//    LiftEntry(liftType: .squat, date: randomDateWithinPastYear(), weight: 380)
-//]
-//
-//let snatchEntries: [LiftEntry] = [
-//    LiftEntry(liftType: .snatch, date: randomDateWithinPastYear(), weight: 100),
-//    LiftEntry(liftType: .snatch, date: randomDateWithinPastYear(), weight: 110),
-//    LiftEntry(liftType: .snatch, date: randomDateWithinPastYear(), weight: 120),
-//    LiftEntry(liftType: .snatch, date: randomDateWithinPastYear(), weight: 130),
-//    LiftEntry(liftType: .snatch, date: randomDateWithinPastYear(), weight: 140)
-//]
-//
-//let allLiftEntries: [LiftEntry] = benchEntries + squatEntries + snatchEntries
-

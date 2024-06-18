@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */; };
+		85280CC92C1F4D280047F172 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85280CC82C1F4D280047F172 /* SettingsManager.swift */; };
 		C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5922BDDB12100D2D793 /* MettleApp.swift */; };
 		C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5942BDDB12100D2D793 /* HomeView.swift */; };
 		C72DF5972BDDB12300D2D793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72DF5962BDDB12300D2D793 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		85280CC82C1F4D280047F172 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		C72DF58F2BDDB12100D2D793 /* Mettle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mettle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72DF5922BDDB12100D2D793 /* MettleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleApp.swift; sourceTree = "<group>"; };
 		C72DF5942BDDB12100D2D793 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				C72DF5BE2BDDC35400D2D793 /* LiftEntry.swift */,
 				851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */,
+				85280CC82C1F4D280047F172 /* SettingsManager.swift */,
 				C72DF5BC2BDDC33700D2D793 /* LiftType.swift */,
 			);
 			path = Models;
@@ -334,6 +337,7 @@
 				C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */,
 				C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */,
 				C72DF5BD2BDDC33700D2D793 /* LiftType.swift in Sources */,
+				85280CC92C1F4D280047F172 /* SettingsManager.swift in Sources */,
 				C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */,
 				C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */,
 				851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */,

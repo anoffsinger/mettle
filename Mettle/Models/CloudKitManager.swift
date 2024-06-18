@@ -47,9 +47,24 @@ class CloudKitManager {
                         return nil
                     }
                     let note = record["note"] as? String
-                    return LiftEntry(liftType: liftType, date: date, weight: weight, note: note)
+                    return LiftEntry(liftType: liftType, date: date, weight: weight, note: note, recordID: record.recordID)
                 }
                 completion(.success(liftEntries))
+            }
+        }
+    }
+
+    func deleteLiftEntry(_ liftEntry: LiftEntry, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let recordID = liftEntry.recordID else {
+            completion(.failure(NSError(domain: "CloudKitManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])))
+            return
+        }
+
+        publicDatabase.delete(withRecordID: recordID) { recordID, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
             }
         }
     }

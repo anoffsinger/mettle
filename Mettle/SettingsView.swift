@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    var body: some View {
+  @EnvironmentObject var settingsManager: SettingsManager
+  var body: some View {
+      
       List {
-        Button(action: {
-          
-        }, label: {
-          Text("Log Out")
-        })
+        Toggle("Display in Kilograms", isOn: $settingsManager.displayInKilograms)
+          .padding()
       }
     }
 }

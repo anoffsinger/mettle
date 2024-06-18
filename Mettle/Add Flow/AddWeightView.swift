@@ -9,18 +9,27 @@ import SwiftUI
 
 struct AddWeightView: View {
   let liftType: LiftType
+  
+  // TODO: Make this real
   let oldPR: Double = 50.0
   
   @State private var textFieldValue: String = ""
   @State private var continueButtonTapped: Bool = false
   @State private var showError: Bool = false
-  @State private var kgViewEnabled: Bool = false
+  @State private var kgViewEnabled: Bool
   @State private var weightIsPR: Bool = false
   @Binding var needsRefresh: Bool
   @Binding var addingPR: Bool
   
-  
+  @EnvironmentObject var settingsManager: SettingsManager
   @FocusState private var isTextFieldFocused: Bool
+  
+  public init(liftType: LiftType, needsRefresh: Binding<Bool>, addingPR: Binding<Bool>, kgViewEnabled: Bool) {
+      self.liftType = liftType
+      self._needsRefresh = needsRefresh
+      self._addingPR = addingPR
+      self._kgViewEnabled = State(initialValue: kgViewEnabled) // Initialize kgViewEnabled
+    }
   
   var body: some View {
     VStack {
@@ -91,6 +100,7 @@ struct AddWeightView: View {
         
         .onAppear {
           isTextFieldFocused = true // Automatically focus when view appears
+          kgViewEnabled = settingsManager.displayInKilograms // initialize the unit setting
         }
         .onChange(of: isTextFieldFocused) {
           if !isTextFieldFocused {
@@ -117,10 +127,10 @@ struct AddWeightView: View {
           HStack (spacing: 4) {
             Text("Last \(liftType.description) PR:")
               .font(.system(size: 16))
-              .foregroundColor(Color("Secondary"))
+              .foregroundColor(Color("TextSecondary"))
             Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: oldPR))) Kg.": "\(String(oldPR)) lbs.")
               .font(.system(size: 16, weight: .semibold))
-              .foregroundColor(Color("Secondary"))
+              .foregroundColor(Color("TextSecondary"))
           }
         }
       }
@@ -140,7 +150,8 @@ struct AddWeightView: View {
           .frame(height: 56)
           .background(
             LinearGradient(
-              gradient: Gradient(colors: weightIsPR ? [Color(hex: "F91F60"), Color(hex: "EC1B80")] : [Color(hex: "e7e7e7"), Color(hex: "bfbfbf")] ),
+              gradient: Gradient(
+                colors: weightIsPR ? [Color(hex: "F91F60"), Color(hex: "EC1B80")] : [Color(hex: "e7e7e7"), Color(hex: "bfbfbf")] ),
               startPoint: .top,
               endPoint: .bottom
             )
@@ -154,12 +165,17 @@ struct AddWeightView: View {
       )
       // Hidden NavigationLink that triggers navigation
       NavigationLink(
-        destination: AddNoteView(newPRWeight: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0, needsRefresh: $needsRefresh, addingPR: $addingPR, liftType: liftType, oldPR: oldPR),
-        isActive: $continueButtonTapped
+          destination: AddNoteView(
+              newPRWeight: kgViewEnabled ? kilogramsToPounds(kilograms: Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0) : Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0.0,
+              needsRefresh: $needsRefresh,
+              addingPR: $addingPR,
+              liftType: liftType,
+              oldPR: oldPR
+          ),
+          isActive: $continueButtonTapped
       ) {
-        EmptyView()
+          EmptyView()
       }
-      
     }
     .padding(.horizontal, 16)
     .padding(.bottom, 16)
@@ -181,9 +197,9 @@ struct AddWeightView: View {
       return characterWidth
     } else {
       return CGFloat(textFieldValue.count) * characterWidth
-      
     }
   }
+  
   private func unitOffset() -> CGFloat {
     
     let characterWidth: CGFloat = 60
@@ -205,6 +221,12 @@ struct AddWeightView: View {
 }
 
 #Preview {
-  AddWeightView(liftType: .bench, needsRefresh: .constant(false), addingPR: .constant(false))
+  AddWeightView(
+    liftType: .bench,
+    needsRefresh: .constant(false),
+    addingPR: .constant(false),
+    kgViewEnabled: SettingsManager.shared.displayInKilograms
+  )
+    .environmentObject(SettingsManager.shared)
 }
 

@@ -21,45 +21,44 @@ struct HomeView: View {
   @State private var showSettingsModal = false
   @State var addingPR = false
   @State var needsRefresh = false
+  @EnvironmentObject var settingsManager: SettingsManager
+  let weight: Double = 200.0 // Example weight
   
   var body: some View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     ZStack {
+      
       NavigationView {
         ScrollView {
           LazyVGrid(columns: columns, spacing: 8) {
+            
             let groupedLiftEntries = Dictionary(grouping: liftEntries, by: { $0.liftType })
+            
             ForEach(groupedLiftEntries.keys.sorted(by: { $0.rawValue < $1.rawValue }), id: \.self) { liftType in
+              
               if let specificLifts = groupedLiftEntries[liftType] {
-                NavigationLink(destination: LiftOverviewView(liftType: liftType)) {
-                  LiftTileView(liftType: liftType, specificLifts: specificLifts)
+                let maxWeightLift = specificLifts.max(by: { $0.weight < $1.weight })
+                
+                NavigationLink(
+                  destination: LiftOverviewView(
+                    liftType: liftType,
+                    specificLifts: specificLifts,
+                    maxWeightLift: maxWeightLift,
+                    kgViewEnabled: settingsManager.displayInKilograms,
+                    needsRefresh: $needsRefresh
+                  )
+                )
+                {
+                  LiftTileView(liftType: liftType, specificLifts: specificLifts, maxWeightLift: maxWeightLift)
                 }
               }
             }
           }
           .padding(.horizontal)
-          if !liftEntries.isEmpty {
-            ForEach(liftEntries.sorted(by: { $0.date > $1.date })) { lift in
-              HStack {
-                VStack (alignment: .leading) {
-                  Text("\(lift.liftType.description)")
-                  Text("\(lift.date.formatted())")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                }
-                Spacer()
-                
-                Text("\(lift.weight) lbs")
-                
-              }
-            }
-          } else {
-            Text("No entries found")
-              .padding()
-          }
         }
+        .background(Color("Background"))
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your lifts")
         .toolbar {
           
@@ -71,19 +70,23 @@ struct HomeView: View {
                 Image(systemName: "person.fill")
                   .resizable()
                   .frame(width: 16, height: 16)
-                  .foregroundColor(Color("Primary"))
+                  .foregroundColor(Color("TextPrimary"))
               }
               .frame(width: 32, height: 32)
-              .background(Color(hex: "E6E1E3"))
+              .background(Color("Foreground"))
               .cornerRadius(20)
             }
           }
         }
       }
+      
+      .accentColor(Color("Action"))
       VStack {
         Spacer()
         VStack(spacing: 0) {
           Divider()
+//            .frame(height: 0.5)
+            
           Spacer()
             .frame(height: 16)
           VStack {
@@ -92,7 +95,7 @@ struct HomeView: View {
           .padding(.horizontal, 16)
         }
         .frame(maxWidth: .infinity)
-        .background(Color(.secondarySystemBackground))
+        .background(Color("Background"))
       }
     }
     
@@ -107,9 +110,9 @@ struct HomeView: View {
     .onChange(of: needsRefresh) { newValue in
       if newValue == true {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    fetchLiftEntries()
-                    needsRefresh = false
-                }
+          fetchLiftEntries()
+          needsRefresh = false
+        }
       }
     }
   }
@@ -137,6 +140,7 @@ struct HomeView: View {
 
 #Preview {
   HomeView()
+    .environmentObject(SettingsManager.shared)
 }
 
 struct CustomToggleStyle: ToggleStyle {
@@ -147,7 +151,7 @@ struct CustomToggleStyle: ToggleStyle {
       ZStack {
         Rectangle() // Custom switch background
           .frame(width: 80, height: 32)
-          .foregroundColor(Color(hex: "e4e4e4"))
+          .foregroundColor(Color("Background"))
           .cornerRadius(10)
           .overlay(
             RoundedRectangle(cornerRadius: 7)
@@ -163,12 +167,12 @@ struct CustomToggleStyle: ToggleStyle {
           Text ("Lb")
             .frame(width: 36, height: 24)
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(Color("Primary"))
+            .foregroundColor(Color("TextPrimary"))
           
           Text ("Kg")
             .frame(width: 36, height: 24)
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(Color("Primary"))
+            .foregroundColor(Color("TextPrimary"))
           
         }
         .padding(.horizontal, 4)
@@ -215,20 +219,29 @@ struct ButtonAddPR: View {
 struct LiftTileView: View {
   let liftType: LiftType
   let specificLifts: [LiftEntry]
-  
+  let maxWeightLift: LiftEntry?
+  @EnvironmentObject var settingsManager: SettingsManager
+
   var body: some View {
     VStack {
       VStack {
         HStack {
           Text(liftType.description)
             .font(.system(size: 12))
-            .foregroundColor(Color("Secondary"))
+            .foregroundColor(Color("TextSecondary"))
           Spacer()
         }
         HStack {
-          Text("225 lbs.")
-            .font(.system(size: 28, weight: .semibold, design: .rounded))
-            .foregroundColor(Color("Primary"))
+          if let maxWeightLift = maxWeightLift {
+            let weightString = maxWeightLift.weight.formattedWeight(displayInKilograms: settingsManager.displayInKilograms)
+            Text(weightString)
+              .font(.system(size: 28, weight: .semibold, design: .rounded))
+              .foregroundColor(Color("TextPrimary"))
+          } else {
+            Text("0 lbs.")
+              .font(.system(size: 28, weight: .semibold, design: .rounded))
+              .foregroundColor(Color("TextPrimary"))
+          }
           Spacer()
         }
       }
@@ -254,7 +267,7 @@ struct LiftTileView: View {
           )
           .lineStyle(StrokeStyle(lineWidth: 4))
           .foregroundStyle(Color(hex: "#F90C6A"))
-          
+
           PointMark(
             x: .value("Date", lift.date),
             y: .value("Strength", lift.weight)
@@ -279,13 +292,14 @@ struct LiftTileView: View {
     }
     .frame(height: 114)
     .padding(16)
-    .background(Color.white)
+    .background(Color("Foreground"))
     .cornerRadius(20)
     .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 4)
     .overlay(
       RoundedRectangle(cornerRadius: 20)
         .inset(by: 0.25) // Adjust by half of the stroke line width
-        .stroke(Color.black.opacity(0.15), lineWidth: 0.5)
+        .stroke(Color("Border"), lineWidth: 0.5)
     )
   }
 }
+

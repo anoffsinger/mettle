@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MettleApp: App {
+  @StateObject private var settingsManager = SettingsManager.shared
+  
     var body: some Scene {
         WindowGroup {
-            AppContainerView()
+            HomeView()
+            .environmentObject(settingsManager)
         }
     }
 }

@@ -26,14 +26,14 @@ struct AddPRView: View {
       ScrollView {
         LazyVGrid(columns: columns, spacing: 8) {
           ForEach(filteredLiftTypes, id: \.self) { liftType in
-            NavigationLink(destination: AddWeightView(liftType: liftType, needsRefresh: $needsRefresh, addingPR: $addingPR)) {
+            NavigationLink(destination: AddWeightView(liftType: liftType, needsRefresh: $needsRefresh, addingPR: $addingPR, kgViewEnabled: SettingsManager.shared.displayInKilograms)) {
               VStack {
                 Text(liftType.description)
                   .font(.headline)
-                  .foregroundColor(.black)
+                  .foregroundColor(Color("TextPrimary"))
                   .padding()
                   .frame(maxWidth: .infinity, minHeight: 100)
-                  .background(Color(hex: "f2f2f2"))
+                  .background(Color("Background"))
                   .cornerRadius(10)
               }
             }
@@ -41,6 +41,7 @@ struct AddPRView: View {
         }
         .padding(.horizontal)
       }
+      
       .navigationTitle("Add PR")
       .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search lift types")
     }

@@ -16,6 +16,7 @@ struct AddNoteView: View {
   @Binding var addingPR: Bool
   let liftType: LiftType
   let oldPR: Double
+  @State private var selectedDate: Date = Date()
   
   var body: some View {
     VStack {
@@ -25,13 +26,13 @@ struct AddNoteView: View {
           text: $textFieldValue
         )
         .keyboardType(.default)
-        .foregroundColor(Color("Primary"))
+        .foregroundColor(Color("TextPrimary"))
         .multilineTextAlignment(.center)
         .tint(.pink)
         .focused($isTextFieldFocused) // Bind focus state
         if textFieldValue.isEmpty {
           Text("Any notes to capture?")
-            .foregroundColor(Color("Secondary"))
+            .foregroundColor(Color("TextSecondary"))
             .frame(maxWidth: .infinity, alignment: .center)
         }
       }
@@ -44,6 +45,13 @@ struct AddNoteView: View {
           isTextFieldFocused = true // Keep the TextField focused
         }
       }
+      DatePicker(
+              "Select Date",
+              selection: $selectedDate,
+              displayedComponents: [.date]
+            )
+      .datePickerStyle(.compact)
+            .padding()
       Button(action: {
         saveLiftEntryAndDismiss()
       }) {
@@ -75,7 +83,7 @@ struct AddNoteView: View {
   }
   
   private func saveLiftEntryAndDismiss() {
-    let liftEntry = LiftEntry(liftType: liftType, date: Date(), weight: newPRWeight, note: textFieldValue)
+    let liftEntry = LiftEntry(liftType: liftType, date: selectedDate, weight: newPRWeight, note: textFieldValue)
     CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
       switch result {
       case .success:

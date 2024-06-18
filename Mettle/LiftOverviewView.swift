@@ -8,35 +8,24 @@
 import SwiftUI
 import Charts
 
-let calendar = Calendar.current
-let today = Date()
-let lastYear = calendar.date(byAdding: .year, value: -1, to: today)!
-
-let weights: [Double] = [210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0]
-
-let dates = (0..<weights.count).map { index in
-    calendar.date(byAdding: .day, value: index * (365 / weights.count), to: lastYear)!
-}
-
-
 struct LiftOverviewView: View {
 
-  let lifts: [LiftEntry] = [
-    LiftEntry(liftType: .backSquat, date: dates[0], weight: weights[0], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[1], weight: weights[1], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[2], weight: weights[2], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[3], weight: weights[3], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[4], weight: weights[4], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[5], weight: weights[5], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[6], weight: weights[6], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[7], weight: weights[7], note: "A nice note"),
-    LiftEntry(liftType: .backSquat, date: dates[8], weight: weights[8], note: "A nice note")
-  ]
-
-
   let liftType: LiftType
-  @State private var kgViewEnabled: Bool = false
-  let currentPR: Double = 232.00
+  let specificLifts: [LiftEntry]
+  let maxWeightLift: LiftEntry?
+  
+  @EnvironmentObject var settingsManager: SettingsManager
+  @State private var kgViewEnabled: Bool
+  @Binding var needsRefresh: Bool
+  
+  // Custom init needed because we are setting kgViewEnabled in a custom way
+  public init(liftType: LiftType, specificLifts: [LiftEntry], maxWeightLift: LiftEntry?, kgViewEnabled: Bool, needsRefresh: Binding<Bool>) {
+      self.liftType = liftType
+      self.specificLifts = specificLifts
+      self.maxWeightLift = maxWeightLift
+      self._kgViewEnabled = State(initialValue: kgViewEnabled)
+      self._needsRefresh = needsRefresh
+  }
 
   var body: some View {
     List {
@@ -45,14 +34,14 @@ struct LiftOverviewView: View {
           VStack(alignment: .leading) {
             Text("Current PR")
               .font(.system(size: 12))
-              .foregroundStyle(Color("Secondary"))
-            Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: currentPR))) kg" : "\(formattedWeight(currentPR)) lb")
+              .foregroundStyle(Color("TextSecondary"))
+            Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: maxWeightLift?.weight ?? 0.0))) kg" : "\(formattedWeight(maxWeightLift?.weight ?? 0.0)) lb")
               .font(.system(size: 28, weight: .bold, design: .rounded))
-              .foregroundColor(Color("Primary"))
+              .foregroundColor(Color("TextPrimary"))
           }
 
           Chart {
-            ForEach(sortLiftEntriesByDate(lifts), id: \.self) { lift in
+            ForEach(sortLiftEntriesByDate(specificLifts), id: \.self) { lift in
               AreaMark(
                 x: .value("Date", lift.date),
                 yStart: .value("Strength", lift.weight),
@@ -98,24 +87,23 @@ struct LiftOverviewView: View {
         header:
           Text("All PRs")
           .font(.system(size: 20, weight: .semibold))
-          .foregroundStyle(Color("Primary"))
+          .foregroundStyle(Color("TextPrimary"))
           .padding(.leading, -20)
           .textCase(.none)
       ) {
-        ForEach(sortLiftEntriesByDate(lifts), id: \.self) { lift in
-          NavigationLink(destination: LiftEntryView(liftEntry: lift)) {
+        ForEach(sortLiftEntriesByDate(specificLifts), id: \.self) { lift in
+          NavigationLink(destination: LiftEntryView(liftEntry: lift, kgViewEnabled: settingsManager.displayInKilograms, needsRefresh: $needsRefresh)) {
             HStack {
               VStack (alignment: .leading) {
-
                 Text("\(lift.date, formatter: itemFormatter)")
                   .font(.system(size: 16, weight: .regular))
-                  .foregroundColor(Color("Primary"))
+                  .foregroundColor(Color("TextPrimary"))
               }
               Spacer()
               VStack {
                 Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: lift.weight))) kg" : "\(formattedWeight(lift.weight)) lb")
                   .font(.system(size: 16, weight: .semibold))
-                  .foregroundColor(Color("Primary"))
+                  .foregroundColor(Color("TextPrimary"))
                 Text("+0.75%")
                   .font(.system(size: 12, weight: .regular))
                   .foregroundColor(Color("Positive"))
@@ -124,6 +112,7 @@ struct LiftOverviewView: View {
             .frame(height: 40)
           }
         }
+        .onDelete(perform: deleteLiftEntries)
       }
     }
     .navigationTitle(liftType.description)
@@ -136,27 +125,61 @@ struct LiftOverviewView: View {
         .toggleStyle(CustomToggleStyle())
       }
     }
+    .onAppear {
+      kgViewEnabled = settingsManager.displayInKilograms // initialize the unit setting
+    }
+    .onChange(of: needsRefresh) { newValue in
+          if newValue {
+            // Fetch or refresh data as needed
+            needsRefresh = false
+          }
+        }
   }
-
+  
+  private func deleteLiftEntries(at offsets: IndexSet) {
+          offsets.forEach { index in
+              let liftEntry = specificLifts[index]
+              CloudKitManager.shared.deleteLiftEntry(liftEntry) { result in
+                  DispatchQueue.main.async {
+                      switch result {
+                      case .success:
+                          needsRefresh = true
+                      case .failure(let error):
+                          print("Error deleting lift entry: \(error)")
+                      }
+                  }
+              }
+          }
+      }
 }
 
 #Preview {
-  LiftOverviewView(liftType: .bench)
+  LiftOverviewView(
+    liftType: .bench,
+    specificLifts: testLifts,
+    maxWeightLift: LiftEntry(
+      liftType: .backSquat,
+      date: dates[2],
+      weight: weights[2],
+      note: "A nice note"),
+    kgViewEnabled: SettingsManager.shared.displayInKilograms, 
+    needsRefresh: .constant(false)
+  )
+  .environmentObject(SettingsManager.shared)
 }
 
-func formattedWeight(_ weight: Double) -> String {
-    let formattedString = String(format: "%.2f", weight)
-    if formattedString.hasSuffix(".00") {
-      return String(format: "%.0f", weight)
-    } else {
-      return formattedString
-    }
-  }
+let calendar = Calendar.current
+let today = Date()
+let lastYear = calendar.date(byAdding: .year, value: -1, to: today)!
+let weights: [Double] = [210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0]
+let dates = (0..<weights.count).map { index in
+    calendar.date(byAdding: .day, value: index * (365 / weights.count), to: lastYear)!
+}
 
-// Global date formatter
-let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-  formatter.dateStyle = .medium
-    formatter.timeStyle = .none
-    return formatter
-}()
+let testLifts: [LiftEntry] = [
+  LiftEntry(liftType: .backSquat, date: dates[0], weight: weights[0], note: "A nice note"),
+  LiftEntry(liftType: .backSquat, date: dates[1], weight: weights[1], note: "A nice note"),
+  LiftEntry(liftType: .backSquat, date: dates[2], weight: weights[2], note: "A nice note"),
+]
+
+
