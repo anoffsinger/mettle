@@ -24,6 +24,9 @@ struct HomeView: View {
   @EnvironmentObject var settingsManager: SettingsManager
   let weight: Double = 200.0 // Example weight
   
+  @State private var showErrorAlert = false
+  @State private var errorMessage = ""
+  
   var body: some View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
@@ -34,7 +37,11 @@ struct HomeView: View {
         ScrollView {
           LazyVGrid(columns: columns, spacing: 8) {
             
-            let groupedLiftEntries = Dictionary(grouping: liftEntries, by: { $0.liftType })
+            let filteredLiftEntries = liftEntries.filter { lift in
+              searchText.isEmpty || lift.liftType.description.lowercased().contains(searchText.lowercased())
+            }
+            
+            let groupedLiftEntries = Dictionary(grouping: filteredLiftEntries, by: { $0.liftType })
             
             ForEach(groupedLiftEntries.keys.sorted(by: { $0.rawValue < $1.rawValue }), id: \.self) { liftType in
               
@@ -57,6 +64,8 @@ struct HomeView: View {
             }
           }
           .padding(.horizontal)
+          Spacer()
+            .frame(height: 88)
         }
         .background(Color("Background"))
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your lifts")
@@ -79,14 +88,20 @@ struct HomeView: View {
           }
         }
       }
-      
+      .alert(isPresented: $showErrorAlert) {
+        Alert(
+          title: Text("Error"),
+          message: Text(errorMessage),
+          dismissButton: .default(Text("OK"))
+        )
+      }
       .accentColor(Color("Action"))
       VStack {
         Spacer()
         VStack(spacing: 0) {
           Divider()
-//            .frame(height: 0.5)
-            
+          //            .frame(height: 0.5)
+          
           Spacer()
             .frame(height: 16)
           VStack {
@@ -127,6 +142,8 @@ struct HomeView: View {
           print(entries)
           
         case .failure(let error):
+          self.errorMessage = error.localizedDescription
+          self.showErrorAlert = true
           print("Error fetching entries: \(error)")
         }
       }
@@ -151,12 +168,12 @@ struct CustomToggleStyle: ToggleStyle {
       ZStack {
         Rectangle() // Custom switch background
           .frame(width: 80, height: 32)
-          .foregroundColor(Color("Background"))
+          .foregroundColor(Color("Foreground"))
           .cornerRadius(10)
           .overlay(
             RoundedRectangle(cornerRadius: 7)
               .frame(width: 36, height: 24)
-              .foregroundColor(.white)
+              .foregroundColor(Color("Background"))
               .offset(x: configuration.isOn ? 18 : -18)
               .animation(.spring(), value: configuration.isOn)
           )
@@ -208,7 +225,7 @@ struct ButtonAddPR: View {
     .overlay(
       RoundedRectangle(cornerRadius: 20)
         .inset(by: 1) // Adjust by half of the stroke line width
-        .stroke(Color.white.opacity(0.25), lineWidth: 2)
+        .stroke(Color("ButtonBorder"), lineWidth: 2)
     )
     .sheet(isPresented: $addingPR) {
       AddPRView(addingPR: $addingPR, needsRefresh: $needsRefresh)
@@ -221,7 +238,7 @@ struct LiftTileView: View {
   let specificLifts: [LiftEntry]
   let maxWeightLift: LiftEntry?
   @EnvironmentObject var settingsManager: SettingsManager
-
+  
   var body: some View {
     VStack {
       VStack {
@@ -267,7 +284,7 @@ struct LiftTileView: View {
           )
           .lineStyle(StrokeStyle(lineWidth: 4))
           .foregroundStyle(Color(hex: "#F90C6A"))
-
+          
           PointMark(
             x: .value("Date", lift.date),
             y: .value("Strength", lift.weight)

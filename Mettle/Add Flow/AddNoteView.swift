@@ -18,6 +18,9 @@ struct AddNoteView: View {
   let oldPR: Double
   @State private var selectedDate: Date = Date()
   
+  @State private var showErrorAlert = false
+  @State private var errorMessage = ""
+  
   var body: some View {
     VStack {
       ZStack {
@@ -46,12 +49,12 @@ struct AddNoteView: View {
         }
       }
       DatePicker(
-              "Select Date",
-              selection: $selectedDate,
-              displayedComponents: [.date]
-            )
+        "Select Date",
+        selection: $selectedDate,
+        displayedComponents: [.date]
+      )
       .datePickerStyle(.compact)
-            .padding()
+      .padding()
       Button(action: {
         saveLiftEntryAndDismiss()
       }) {
@@ -80,17 +83,21 @@ struct AddNoteView: View {
     .padding(.bottom, 16)
     .navigationBarTitleDisplayMode(.inline)
     .navigationTitle("\(liftType.description)")
+    .alert(isPresented: $showErrorAlert) {
+      Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+    }
   }
   
   private func saveLiftEntryAndDismiss() {
-    let liftEntry = LiftEntry(liftType: liftType, date: selectedDate, weight: newPRWeight, note: textFieldValue)
+    let liftEntry = LiftEntry(liftType: liftType, date: Date(), weight: newPRWeight, note: textFieldValue)
     CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
       switch result {
       case .success:
         needsRefresh = true
         addingPR = false
       case .failure(let error):
-        print("Error saving entry: \(error)")
+        errorMessage = "Error saving entry: \(error.localizedDescription)"
+        showErrorAlert = true
       }
     }
   }

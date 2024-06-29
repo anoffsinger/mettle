@@ -50,6 +50,7 @@
 /* Begin PBXFileReference section */
 		851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		85280CC82C1F4D280047F172 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		854A735C2C21374900BC2553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C72DF58F2BDDB12100D2D793 /* Mettle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mettle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72DF5922BDDB12100D2D793 /* MettleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleApp.swift; sourceTree = "<group>"; };
 		C72DF5942BDDB12100D2D793 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		C72DF5912BDDB12100D2D793 /* Mettle */ = {
 			isa = PBXGroup;
 			children = (
+				854A735C2C21374900BC2553 /* Info.plist */,
 				C7A5AC8B2BFA93B000123575 /* Authentication */,
 				C7A5AC862BF802E800123575 /* Mettle.entitlements */,
 				C7A5AC8C2BFA954C00123575 /* AppContainerView.swift */,
@@ -503,11 +505,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Mettle/Mettle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Mettle/Preview Content\"";
 				DEVELOPMENT_TEAM = 826245N2M8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mettle/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -533,11 +536,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Mettle/Mettle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Mettle/Preview Content\"";
 				DEVELOPMENT_TEAM = 826245N2M8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mettle/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

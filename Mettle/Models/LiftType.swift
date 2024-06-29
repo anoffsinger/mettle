@@ -28,6 +28,8 @@ enum LiftType: String, Codable, CaseIterable {
   case thruster = "Thruster"
   case deadlift = "Deadlift"
   case bench = "Bench"
+  
+  case testLift = "Test Lift"
 
   var description: String {
     switch self {
@@ -68,6 +70,9 @@ enum LiftType: String, Codable, CaseIterable {
       return "Deadlift"
     case .bench:
       return "Bench"
+      
+    case .testLift:
+      return "Test Lift"
     }
   }
 }
