@@ -10,9 +10,8 @@ import SwiftUI
 struct AddWeightView: View {
   let liftType: LiftType
   
-  // TODO: Make this real
-  let oldPR: Double = 50.0
   
+  @State private var oldPR: Double = 0.0
   @State private var textFieldValue: String = ""
   @State private var continueButtonTapped: Bool = false
   @State private var showError: Bool = false
@@ -20,6 +19,11 @@ struct AddWeightView: View {
   @State private var weightIsPR: Bool = false
   @Binding var needsRefresh: Bool
   @Binding var addingPR: Bool
+  
+  private var displayedOldPR: Double {
+      return kgViewEnabled ? poundsToKilograms(pounds: oldPR) : oldPR
+  }
+
   
   @EnvironmentObject var settingsManager: SettingsManager
   @FocusState private var isTextFieldFocused: Bool
@@ -101,6 +105,9 @@ struct AddWeightView: View {
         .onAppear {
           isTextFieldFocused = true // Automatically focus when view appears
           kgViewEnabled = settingsManager.displayInKilograms // initialize the unit setting
+          fetchOldPR(for: liftType) { pr in
+                  oldPR = pr
+              }
         }
         .onChange(of: isTextFieldFocused) {
           if !isTextFieldFocused {
@@ -108,18 +115,18 @@ struct AddWeightView: View {
           }
         }
         .onChange(of: textFieldValue) { newValue in
-          if let value = Double(newValue), value > oldPR {
-            weightIsPR = true
-          } else {
-            weightIsPR = false
-          }
+          if let value = Double(newValue), value > displayedOldPR {
+                  weightIsPR = true
+              } else {
+                  weightIsPR = false
+              }
         }
         if showError {
           HStack (spacing: 4) {
             Text("Enter a weight greater than:")
               .font(.system(size: 16))
               .foregroundColor(.red)
-            Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: oldPR)))": "\(String(oldPR)) lbs.")
+            Text("\(formattedWeight(displayedOldPR)) \(kgViewEnabled ? "kg" : "lb")")
               .font(.system(size: 16, weight: .semibold))
               .foregroundColor(.red)
           }
@@ -128,7 +135,7 @@ struct AddWeightView: View {
             Text("Last \(liftType.description) PR:")
               .font(.system(size: 16))
               .foregroundColor(Color("TextSecondary"))
-            Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: oldPR))) Kg.": "\(String(oldPR)) lbs.")
+            Text("\(formattedWeight(displayedOldPR)) \(kgViewEnabled ? "kg" : "lb")")
               .font(.system(size: 16, weight: .semibold))
               .foregroundColor(Color("TextSecondary"))
           }
@@ -215,6 +222,19 @@ struct AddWeightView: View {
     } else {
       return 150
     }
+  }
+  
+  private func fetchOldPR(for liftType: LiftType, completion: @escaping (Double) -> Void) {
+      CloudKitManager.shared.fetchLiftEntries { result in
+          switch result {
+          case .success(let entries):
+              let maxLift = entries.filter { $0.liftType == liftType }.max(by: { $0.weight < $1.weight })
+              completion(maxLift?.weight ?? 0.0)
+          case .failure(let error):
+              print("Error fetching entries: \(error)")
+              completion(0.0)
+          }
+      }
   }
   
   
