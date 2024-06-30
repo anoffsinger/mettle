@@ -8,12 +8,21 @@
 import Foundation
 import CloudKit
 
+import Foundation
+import CloudKit
+
 class CloudKitManager {
   static let shared = CloudKitManager()
   private let publicDatabase = CKContainer(identifier: "iCloud.com.noff.Mettle").publicCloudDatabase
   
   func saveLiftEntry(_ liftEntry: LiftEntry, completion: @escaping (Result<CKRecord, Error>) -> Void) {
-    let record = CKRecord(recordType: "LiftEntry")
+    let record: CKRecord
+    if let existingRecordID = liftEntry.recordID {
+      record = CKRecord(recordType: "LiftEntry", recordID: existingRecordID)
+    } else {
+      record = CKRecord(recordType: "LiftEntry")
+    }
+    
     record["liftType"] = liftEntry.liftType.rawValue
     record["date"] = liftEntry.date
     record["weight"] = liftEntry.weight
@@ -53,7 +62,7 @@ class CloudKitManager {
               return nil
             }
             let note = record["note"] as? String
-            return LiftEntry(liftType: liftType, date: date, weight: weight, note: note)
+            return LiftEntry(liftType: liftType, date: date, weight: weight, note: note, recordID: record.recordID)
           }
           completion(.success(liftEntries))
         }
@@ -62,29 +71,18 @@ class CloudKitManager {
   }
   
   func deleteLiftEntry(_ liftEntry: LiftEntry, completion: @escaping (Result<Void, Error>) -> Void) {
-    CKContainer.default().fetchUserRecordID { userRecordID, error in
-      guard let userRecordID = userRecordID, error == nil else {
-        completion(.failure(error!))
-        return
-      }
-      let predicate = NSPredicate(format: "creatorUserRecordID == %@ AND date == %@ AND weight == %f", userRecordID, liftEntry.date as NSDate, liftEntry.weight)
-      let query = CKQuery(recordType: "LiftEntry", predicate: predicate)
-      
-      self.publicDatabase.perform(query, inZoneWith: nil) { records, error in
-        if let error = error {
-          completion(.failure(error))
-        } else if let records = records, let record = records.first {
-          self.publicDatabase.delete(withRecordID: record.recordID) { recordID, error in
-            if let error = error {
-              completion(.failure(error))
-            } else {
-              completion(.success(()))
-            }
-          }
-        } else {
-          completion(.failure(NSError(domain: "CloudKitManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])))
-        }
+    guard let recordID = liftEntry.recordID else {
+      completion(.failure(NSError(domain: "CloudKitManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record ID is missing"])))
+      return
+    }
+    
+    publicDatabase.delete(withRecordID: recordID) { recordID, error in
+      if let error = error {
+        completion(.failure(error))
+      } else {
+        completion(.success(()))
       }
     }
   }
 }
+

@@ -117,8 +117,10 @@ struct AddWeightView: View {
         .onChange(of: textFieldValue) { newValue in
           if let value = Double(newValue), value > displayedOldPR {
                   weightIsPR = true
+            print(displayedOldPR)
               } else {
                   weightIsPR = false
+                print(displayedOldPR)
               }
         }
         if showError {
@@ -143,7 +145,7 @@ struct AddWeightView: View {
       }
       .frame(maxHeight: .infinity)
       Button(action: {
-        if let value = Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)), value > oldPR {
+        if let value = Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)), value > displayedOldPR {
           self.continueButtonTapped = true
           self.showError = false
         } else {

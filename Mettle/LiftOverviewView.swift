@@ -18,6 +18,9 @@ struct LiftOverviewView: View {
   @State private var kgViewEnabled: Bool
   @Binding var needsRefresh: Bool
   
+  @State private var showErrorAlert = false
+  @State private var errorMessage = ""
+  
   // Custom init needed because we are setting kgViewEnabled in a custom way
   public init(liftType: LiftType, specificLifts: [LiftEntry], maxWeightLift: LiftEntry?, kgViewEnabled: Bool, needsRefresh: Binding<Bool>) {
       self.liftType = liftType
@@ -134,23 +137,29 @@ struct LiftOverviewView: View {
             needsRefresh = false
           }
         }
+    .alert(isPresented: $showErrorAlert) {
+      Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+    }
   }
   
   private func deleteLiftEntries(at offsets: IndexSet) {
-          offsets.forEach { index in
-              let liftEntry = specificLifts[index]
-              CloudKitManager.shared.deleteLiftEntry(liftEntry) { result in
-                  DispatchQueue.main.async {
-                      switch result {
-                      case .success:
-                          needsRefresh = true
-                      case .failure(let error):
-                          print("Error deleting lift entry: \(error)")
-                      }
+      offsets.forEach { index in
+          let liftEntry = specificLifts[index]
+          CloudKitManager.shared.deleteLiftEntry(liftEntry) { result in
+              DispatchQueue.main.async {
+                  switch result {
+                  case .success:
+                      needsRefresh = true
+                  case .failure(let error):
+                      showErrorAlert = true
+                      errorMessage = "Error deleting lift entry: \(error.localizedDescription)"
+                      print("Error deleting lift entry: \(error)")
                   }
               }
           }
       }
+  }
+
 }
 
 #Preview {

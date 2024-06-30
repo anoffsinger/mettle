@@ -89,7 +89,7 @@ struct AddNoteView: View {
   }
   
   private func saveLiftEntryAndDismiss() {
-    let liftEntry = LiftEntry(liftType: liftType, date: Date(), weight: newPRWeight, note: textFieldValue)
+    let liftEntry = LiftEntry(liftType: liftType, date: selectedDate, weight: newPRWeight, note: textFieldValue)
     CloudKitManager.shared.saveLiftEntry(liftEntry) { result in
       switch result {
       case .success:
