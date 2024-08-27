@@ -23,7 +23,6 @@ struct AddWeightView: View {
   private var displayedOldPR: Double {
       return kgViewEnabled ? poundsToKilograms(pounds: oldPR) : oldPR
   }
-
   
   @EnvironmentObject var settingsManager: SettingsManager
   @FocusState private var isTextFieldFocused: Bool
@@ -117,10 +116,10 @@ struct AddWeightView: View {
         .onChange(of: textFieldValue) { newValue in
           if let value = Double(newValue), value > displayedOldPR {
                   weightIsPR = true
-            print(displayedOldPR)
+            print("Weight is a PR")
               } else {
                   weightIsPR = false
-                print(displayedOldPR)
+                print("Weight is not a PR")
               }
         }
         if showError {
@@ -148,6 +147,7 @@ struct AddWeightView: View {
         if let value = Double(textFieldValue.trimmingCharacters(in: .whitespacesAndNewlines)), value > displayedOldPR {
           self.continueButtonTapped = true
           self.showError = false
+          print("button tapped correctly")
         } else {
           self.showError = true
         }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */; };
 		85280CC92C1F4D280047F172 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85280CC82C1F4D280047F172 /* SettingsManager.swift */; };
+		8533A0D12C7D6BC300FDC182 /* LiftTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8533A0D02C7D6BC300FDC182 /* LiftTileView.swift */; };
+		8534E0F82C68111100585EF6 /* PercentageCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8534E0F72C68111100585EF6 /* PercentageCalculatorView.swift */; };
 		C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5922BDDB12100D2D793 /* MettleApp.swift */; };
 		C72DF5952BDDB12100D2D793 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72DF5942BDDB12100D2D793 /* HomeView.swift */; };
 		C72DF5972BDDB12300D2D793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72DF5962BDDB12300D2D793 /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		851E81602C067B0D00DD7AF2 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		85280CC82C1F4D280047F172 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8533A0D02C7D6BC300FDC182 /* LiftTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftTileView.swift; sourceTree = "<group>"; };
+		8534E0F72C68111100585EF6 /* PercentageCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageCalculatorView.swift; sourceTree = "<group>"; };
 		854A735C2C21374900BC2553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C72DF58F2BDDB12100D2D793 /* Mettle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mettle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72DF5922BDDB12100D2D793 /* MettleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MettleApp.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		C72DF5862BDDB12100D2D793 = {
 			isa = PBXGroup;
 			children = (
+				8534E0F72C68111100585EF6 /* PercentageCalculatorView.swift */,
 				C72DF5912BDDB12100D2D793 /* Mettle */,
 				C72DF5A22BDDB12300D2D793 /* MettleTests */,
 				C72DF5AC2BDDB12300D2D793 /* MettleUITests */,
@@ -141,6 +146,7 @@
 				C7A5AC872BF8033000123575 /* SplashPageView.swift */,
 				C72DF5922BDDB12100D2D793 /* MettleApp.swift */,
 				C72DF5942BDDB12100D2D793 /* HomeView.swift */,
+				8533A0D02C7D6BC300FDC182 /* LiftTileView.swift */,
 				C75D019A2BFFFB6A00B0012A /* SettingsView.swift */,
 				851E81622C06821500DD7AF2 /* Add Flow */,
 				C7B2B5CC2BE04002002F4F26 /* LiftOverviewView.swift */,
@@ -338,11 +344,13 @@
 				C7E1C9B32BEDE27C006FC86E /* AddWeightView.swift in Sources */,
 				C7A5AC8A2BFA93A000123575 /* AppState.swift in Sources */,
 				C72DF5932BDDB12100D2D793 /* MettleApp.swift in Sources */,
+				8533A0D12C7D6BC300FDC182 /* LiftTileView.swift in Sources */,
 				C72DF5BD2BDDC33700D2D793 /* LiftType.swift in Sources */,
 				85280CC92C1F4D280047F172 /* SettingsManager.swift in Sources */,
 				C72DF5C12BDDC39400D2D793 /* Utilities.swift in Sources */,
 				C72DF5BF2BDDC35400D2D793 /* LiftEntry.swift in Sources */,
 				851E81612C067B0D00DD7AF2 /* CloudKitManager.swift in Sources */,
+				8534E0F82C68111100585EF6 /* PercentageCalculatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +519,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mettle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Metal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -542,6 +551,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mettle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Metal;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -9,16 +9,16 @@ import Foundation
 import SwiftUI
 
 extension Date {
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium // Adjust the style as needed
-        formatter.timeStyle = .none
-        return formatter
-    }()
-
-    var formatted: String {
-        return Date.dateFormatter.string(from: self)
-    }
+  static let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium // Adjust the style as needed
+    formatter.timeStyle = .none
+    return formatter
+  }()
+  
+  var formatted: String {
+    return Date.dateFormatter.string(from: self)
+  }
 }
 
 //extension Double {
@@ -27,65 +27,65 @@ extension Date {
 //    }
 //}
 
-extension Double {
-    func formattedWeight(displayInKilograms: Bool) -> String {
-        let weight = displayInKilograms ? self * 0.453592 : self
-        let unit = displayInKilograms ? "kg" : "lbs"
-        let formattedWeight: String
-        
-        if weight.truncatingRemainder(dividingBy: 1) == 0 {
-            formattedWeight = String(format: "%.0f %@", weight, unit)
-        } else {
-            formattedWeight = String(format: "%.2f %@", weight, unit)
-        }
-        
-        return formattedWeight
-    }
-}
+//extension Double {
+//  func formattedWeight(displayInKilograms: Bool) -> String {
+//    let weight = displayInKilograms ? self * 0.453592 : self
+//    let unit = displayInKilograms ? "kg" : "lbs"
+//    let formattedWeight: String
+//    
+//    if weight.truncatingRemainder(dividingBy: 1) == 0 {
+//      formattedWeight = String(format: "%.0f %@", weight, unit)
+//    } else {
+//      formattedWeight = String(format: "%.2f %@", weight, unit)
+//    }
+//    
+//    return formattedWeight
+//  }
+//}
 
 
 
 extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue:  Double(b) / 255, opacity: Double(a) / 255)
+  init(hex: String) {
+    let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    var int: UInt64 = 0
+    Scanner(string: hex).scanHexInt64(&int)
+    let a, r, g, b: UInt64
+    switch hex.count {
+    case 3: // RGB (12-bit)
+      (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+    case 6: // RGB (24-bit)
+      (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+    case 8: // ARGB (32-bit)
+      (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+    default:
+      (a, r, g, b) = (255, 0, 0, 0)
     }
+    self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue:  Double(b) / 255, opacity: Double(a) / 255)
+  }
 }
 
 // Generate a random date within the past year
 func randomDateWithinPastYear() -> Date {
-    let calendar = Calendar.current
-    let startDate = calendar.date(byAdding: .year, value: -1, to: Date())!
-    let timeInterval = Date().timeIntervalSince(startDate)
-    let randomInterval = TimeInterval(arc4random_uniform(UInt32(timeInterval)))
-    return startDate.addingTimeInterval(randomInterval)
+  let calendar = Calendar.current
+  let startDate = calendar.date(byAdding: .year, value: -1, to: Date())!
+  let timeInterval = Date().timeIntervalSince(startDate)
+  let randomInterval = TimeInterval(arc4random_uniform(UInt32(timeInterval)))
+  return startDate.addingTimeInterval(randomInterval)
 }
 
 func randomDateWithinLastTwoYears() -> Date {
-    let calendar = Calendar.current
-    let twoYearsAgo = calendar.date(byAdding: .year, value: -2, to: Date())!
-    let timeInterval = Date().timeIntervalSince(twoYearsAgo)
-    let randomInterval = TimeInterval(arc4random_uniform(UInt32(timeInterval)))
-    return twoYearsAgo.addingTimeInterval(randomInterval)
-
-
+  let calendar = Calendar.current
+  let twoYearsAgo = calendar.date(byAdding: .year, value: -2, to: Date())!
+  let timeInterval = Date().timeIntervalSince(twoYearsAgo)
+  let randomInterval = TimeInterval(arc4random_uniform(UInt32(timeInterval)))
+  return twoYearsAgo.addingTimeInterval(randomInterval)
+  
+  
 }
 
 func randomWeight(min: Int, max: Int) -> Double {
-    return Double(Int.random(in: min...max))
+  return Double(Int.random(in: min...max))
 }
 
 // Global function to sort an array of LiftEntry by date
@@ -96,35 +96,42 @@ func sortLiftEntriesByDate(_ lifts: [LiftEntry]) -> [LiftEntry] {
 
 
 func poundsToKilograms(pounds: Double) -> Double {
-    return pounds * 0.453592
+  return pounds * 0.453592
 }
 
 func kilogramsToPounds(kilograms: Double) -> Double {
-    return kilograms * 2.20462
+  return kilograms * 2.20462
 }
 
 func formattedWeight(_ weight: Double) -> String {
+    // Format the weight as a string with 2 decimal places
     let formattedString = String(format: "%.2f", weight)
+    
+    // Check if the formatted string ends with ".00"
+    // This means the weight is a whole number with no fractional part
     if formattedString.hasSuffix(".00") {
-      return String(format: "%.0f", weight)
+        // If it does, format the weight as a string with no decimal places
+        // This effectively removes the ".00" and returns just the whole number
+        return String(format: "%.0f", weight)
     } else {
-      return formattedString
+        // If the weight is not a whole number, return the formatted string with 2 decimal places
+        return formattedString
     }
-  }
+}
 
 // Global date formatter
 let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
+  let formatter = DateFormatter()
   formatter.dateStyle = .medium
-    formatter.timeStyle = .none
-    return formatter
+  formatter.timeStyle = .none
+  return formatter
 }()
 
 func printUserDefaults() {
-    let defaults = UserDefaults.standard
-    let dictionary = defaults.dictionaryRepresentation()
-
-    for (key, value) in dictionary {
-        print("\(key): \(value)")
-    }
+  let defaults = UserDefaults.standard
+  let dictionary = defaults.dictionaryRepresentation()
+  
+  for (key, value) in dictionary {
+    print("\(key): \(value)")
+  }
 }

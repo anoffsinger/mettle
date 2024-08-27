@@ -27,15 +27,45 @@ struct LiftEntryView: View {
     List {
       Text(kgViewEnabled ? "\(formattedWeight(poundsToKilograms(pounds: liftEntry.weight ?? 0.0))) kg" : "\(formattedWeight(liftEntry.weight ?? 0.0)) lb")
         .font(.system(size: 48, weight: .bold, design: .rounded))
-        .navigationTitle(liftEntry.weight.description)
+        .navigationTitle(liftEntry.liftType.description)
         .navigationBarTitleDisplayMode(.inline)
       
-      Section("Date Added", content: {
-        Text("\(liftEntry.date, formatter: itemFormatter)")
+      Section(content: {
+          Text("\(liftEntry.date, formatter: itemFormatter)")
+      }, header: {
+        HStack (spacing: 4) {
+          
+          Image(systemName: "calendar")
+            .font(.system(size: 13.0, weight: .semibold))
+            .foregroundColor(Color("TextPrimary"))
+            .textCase(.none)
+          Text("Date Added")
+            .font(.system(size: 13.0, weight: .semibold))
+            .foregroundColor(Color("TextPrimary"))
+            .textCase(.none)
+        }
+        
+          
+          
       })
-      Section("Note", content: {
-        Text("No note added")
+      
+      Section(content: {
+        Text(liftEntry.note ?? "No note added")
+      }, header: {
+        HStack (spacing: 4) {
+          Image(systemName: "doc.text")
+            .font(.system(size: 13.0, weight: .semibold))
+            .foregroundColor(Color("TextPrimary"))
+            .textCase(.none)
+          Text("Note")
+            .font(.system(size: 13.0, weight: .semibold))
+            .foregroundColor(Color("TextPrimary"))
+            .textCase(.none)
+        }
+          
+          
       })
+      
       Button(action: {
         showDeleteAlert = true
         
@@ -84,7 +114,7 @@ struct LiftEntryView: View {
       liftType: .bench,
       date: Date(),
       weight: 1000000.00,
-      note: "A nice note",
+      note: "This one wasn't that tough.",
       recordID: CKRecord.ID(recordName: "exampleID")
     ),
     kgViewEnabled: SettingsManager.shared.displayInKilograms,

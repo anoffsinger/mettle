@@ -45,6 +45,7 @@ struct AddPRView: View {
       .navigationTitle("Add PR")
       .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search lift types")
     }
+    .accentColor(Color("Action"))
   }
 }
 

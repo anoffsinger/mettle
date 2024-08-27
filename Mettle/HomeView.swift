@@ -20,6 +20,7 @@ struct HomeView: View {
   @State private var searchText = ""
   @State private var showSettingsModal = false
   @State var addingPR = false
+  @State var viewingOverview = false
   @State var needsRefresh = false
   @EnvironmentObject var settingsManager: SettingsManager
   let weight: Double = 200.0 // Example weight
@@ -31,9 +32,10 @@ struct HomeView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
-    ZStack {
-      
-      NavigationView {
+    
+    
+    NavigationView {
+      ZStack {
         ScrollView {
           LazyVGrid(columns: columns, spacing: 8) {
             
@@ -43,8 +45,13 @@ struct HomeView: View {
             
             let groupedLiftEntries = Dictionary(grouping: filteredLiftEntries, by: { $0.liftType })
             
-            ForEach(groupedLiftEntries.keys.sorted(by: { $0.rawValue < $1.rawValue }), id: \.self) { liftType in
-              
+            ForEach(
+              groupedLiftEntries.keys.sorted(by: {
+                let date1 = groupedLiftEntries[$0]?.max(by: { $0.date < $1.date })?.date ?? Date.distantPast
+                let date2 = groupedLiftEntries[$1]?.max(by: { $0.date < $1.date })?.date ?? Date.distantPast
+                return date1 > date2
+              }), id: \.self
+            ) { liftType in
               if let specificLifts = groupedLiftEntries[liftType] {
                 let maxWeightLift = specificLifts.max(by: { $0.weight < $1.weight })
                 
@@ -56,8 +63,7 @@ struct HomeView: View {
                     kgViewEnabled: settingsManager.displayInKilograms,
                     needsRefresh: $needsRefresh
                   )
-                )
-                {
+                ) {
                   LiftTileView(liftType: liftType, specificLifts: specificLifts, maxWeightLift: maxWeightLift)
                 }
               }
@@ -70,49 +76,73 @@ struct HomeView: View {
         .background(Color("Background"))
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your lifts")
         .toolbar {
+          ToolbarItem(placement: .principal) {
+            ZStack(alignment: .center) {
+              Image("Logo Header")
+                .resizable()
+                .frame(width: 32, height: 32)
+                .offset(x: 2.5, y: -1)
+              
+              
+            }
+            .padding(0)
+            .frame(width: 32, height: 32, alignment: .center)
+            .background(
+              LinearGradient(
+                stops: [
+                  Gradient.Stop(color: Color(red: 1, green: 0.04, blue: 0.41), location: 0.00),
+                  Gradient.Stop(color: Color(red: 0.84, green: 0.08, blue: 0.44), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
+              )
+            )
+            .cornerRadius(10)
+            .shadow(color: .black.opacity(0.2), radius: 2.5, x: 0, y: 2)
+          }
           
           ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: {
               showSettingsModal = true
             }) {
-              ZStack {
-                Image(systemName: "person.fill")
-                  .resizable()
-                  .frame(width: 16, height: 16)
-                  .foregroundColor(Color("TextPrimary"))
-              }
-              .frame(width: 32, height: 32)
-              .background(Color("Foreground"))
-              .cornerRadius(20)
+              Image(systemName: "gearshape.fill")
+                .font(.system(size: 17))
+              
+                .foregroundColor(Color("TextPrimary"))
+              
             }
           }
         }
-      }
-      .alert(isPresented: $showErrorAlert) {
-        Alert(
-          title: Text("Error"),
-          message: Text(errorMessage),
-          dismissButton: .default(Text("OK"))
-        )
-      }
-      .accentColor(Color("Action"))
-      VStack {
-        Spacer()
-        VStack(spacing: 0) {
-          Divider()
-          //            .frame(height: 0.5)
-          
+        
+        VStack {
           Spacer()
-            .frame(height: 16)
-          VStack {
-            ButtonAddPR(addingPR: $addingPR, needsRefresh: $needsRefresh)
+          VStack(spacing: 0) {
+            Divider()
+            //            .frame(height: 0.5)
+            
+            Spacer()
+              .frame(height: 16)
+            VStack {
+              ButtonAddPR(addingPR: $addingPR, needsRefresh: $needsRefresh)
+            }
+            .padding(.horizontal, 16)
           }
-          .padding(.horizontal, 16)
+          .frame(maxWidth: .infinity)
+          .background(Color("Background"))
         }
-        .frame(maxWidth: .infinity)
-        .background(Color("Background"))
       }
+      .navigationBarTitleDisplayMode(.inline)
     }
+    
+    
+    .alert(isPresented: $showErrorAlert) {
+      Alert(
+        title: Text("Error"),
+        message: Text(errorMessage),
+        dismissButton: .default(Text("OK"))
+      )
+    }
+    .accentColor(Color("Action"))
     
     .sheet(isPresented: $showSettingsModal) {
       // Replace with your modal view
@@ -120,7 +150,6 @@ struct HomeView: View {
     }
     .onAppear {
       fetchLiftEntries()
-      
     }
     .onChange(of: needsRefresh) { newValue in
       if newValue == true {
@@ -168,36 +197,45 @@ struct CustomToggleStyle: ToggleStyle {
       ZStack {
         Rectangle() // Custom switch background
           .frame(width: 80, height: 32)
-          .foregroundColor(Color("Foreground"))
+          .foregroundColor(Color("ToggleBackground"))
           .cornerRadius(10)
+          .overlay(
+            RoundedRectangle(cornerRadius: 10)
+              .stroke(Color(.white).opacity(0.5), lineWidth: 0.07)
+          )
           .overlay(
             RoundedRectangle(cornerRadius: 7)
               .frame(width: 36, height: 24)
-              .foregroundColor(Color("Background"))
+              .foregroundColor(Color("ToggleForeground"))
               .offset(x: configuration.isOn ? 18 : -18)
               .animation(.spring(), value: configuration.isOn)
+              .overlay(
+                RoundedRectangle(cornerRadius: 7)
+                  .stroke(Color(.white).opacity(0.5), lineWidth: 0.07)
+                  .offset(x: configuration.isOn ? 18 : -18)
+                  .animation(.spring(), value: configuration.isOn)
+              )
           )
           .onTapGesture {
             configuration.isOn.toggle()
           }
-        HStack (spacing: 0) {
-          Text ("Lb")
+        HStack(spacing: 0) {
+          Text("Lb")
             .frame(width: 36, height: 24)
             .font(.system(size: 14, weight: .semibold))
             .foregroundColor(Color("TextPrimary"))
           
-          Text ("Kg")
+          Text("Kg")
             .frame(width: 36, height: 24)
             .font(.system(size: 14, weight: .semibold))
             .foregroundColor(Color("TextPrimary"))
-          
         }
         .padding(.horizontal, 4)
       }
-      
     }
   }
 }
+
 
 
 struct ButtonAddPR: View {
@@ -231,162 +269,6 @@ struct ButtonAddPR: View {
       AddPRView(addingPR: $addingPR, needsRefresh: $needsRefresh)
     }
   }
-}
-
-import SwiftUI
-import Charts
-
-import SwiftUI
-import Charts
-
-import SwiftUI
-import Charts
-
-import SwiftUI
-import Charts
-
-import SwiftUI
-import Charts
-
-struct LiftTileView: View {
-    let liftType: LiftType
-    let specificLifts: [LiftEntry]
-    let maxWeightLift: LiftEntry?
-    @EnvironmentObject var settingsManager: SettingsManager
-
-    var body: some View {
-        VStack {
-            VStack {
-                HStack {
-                    Text(liftType.description)
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("TextSecondary"))
-                    Spacer()
-                }
-                HStack {
-                    if let maxWeightLift = maxWeightLift {
-                        let weightString = maxWeightLift.weight.formattedWeight(displayInKilograms: settingsManager.displayInKilograms)
-                        Text(weightString)
-                            .font(.system(size: 28, weight: .semibold, design: .rounded))
-                            .foregroundColor(Color("TextPrimary"))
-                    } else {
-                        Text("0 lbs.")
-                            .font(.system(size: 28, weight: .semibold, design: .rounded))
-                            .foregroundColor(Color("TextPrimary"))
-                    }
-                    Spacer()
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(0)
-            Chart {
-                if specificLifts.count == 1 {
-                    let singleLift = specificLifts[0]
-                    let calendar = Calendar.current
-                    let startDate = calendar.date(byAdding: .month, value: -6, to: singleLift.date)!
-                    let endDate = calendar.date(byAdding: .month, value: 6, to: singleLift.date)!
-
-                    RuleMark(y: .value("Strength", singleLift.weight))
-                        .lineStyle(StrokeStyle(lineWidth: 4))
-                        .foregroundStyle(Color(hex: "#F90C6A"))
-
-                    AreaMark(
-                        xStart: .value("Date", startDate),
-                        xEnd: .value("Date", endDate),
-                        y: .value("Strength", singleLift.weight),
-                        series: .value("Base", 0)
-                    )
-                    .foregroundStyle(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color(hex: "#F90C6A").opacity(0.5), Color(hex: "#F90C6A").opacity(0)]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-
-                    PointMark(
-                        x: .value("Date", singleLift.date),
-                        y: .value("Strength", singleLift.weight)
-                    )
-                    .symbol {
-                        Circle().strokeBorder(Color(hex: "#F90C6A"), lineWidth: 4)
-                            .background(Circle().fill(Color(.white)))
-                            .frame(width: 14, height: 14)
-                    }
-                } else {
-                    ForEach(sortLiftEntriesByDate(specificLifts), id: \.self) { lift in
-                        AreaMark(
-                            x: .value("Date", lift.date),
-                            yStart: .value("Strength", lift.weight),
-                            yEnd: .value("Base", 0)
-                        )
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color(hex: "#F90C6A").opacity(0.5), Color(hex: "#F90C6A").opacity(0)]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        LineMark(
-                            x: .value("Date", lift.date),
-                            y: .value("Strength", lift.weight)
-                        )
-                        .lineStyle(StrokeStyle(lineWidth: 4))
-                        .foregroundStyle(Color(hex: "#F90C6A"))
-
-                        PointMark(
-                            x: .value("Date", lift.date),
-                            y: .value("Strength", lift.weight)
-                        )
-                        .symbol {
-                            Circle().strokeBorder(Color(hex: "#F90C6A"), lineWidth: 4)
-                                .background(Circle().fill(Color(.white)))
-                                .frame(width: 14, height: 14)
-                        }
-                    }
-                }
-            }
-            .chartXScale(domain: getChartDomain(for: specificLifts))
-            .chartXAxis {
-                AxisMarks(values: .automatic) { _ in
-                    // hiding marks
-                }
-            }
-            .chartYAxis {
-                AxisMarks(values: .automatic) { _ in
-                    // hiding marks
-                }
-            }
-        }
-        .frame(height: 114)
-        .padding(16)
-        .background(Color("Foreground"))
-        .cornerRadius(20)
-        .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 4)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 0.25) // Adjust by half of the stroke line width
-                .stroke(Color("Border"), lineWidth: 0.5)
-        )
-    }
-
-    private func getChartDomain(for lifts: [LiftEntry]) -> ClosedRange<Date> {
-        if lifts.count == 1 {
-            let singleLift = lifts[0]
-            let calendar = Calendar.current
-            let startDate = calendar.date(byAdding: .month, value: -6, to: singleLift.date)!
-            let endDate = calendar.date(byAdding: .month, value: 6, to: singleLift.date)!
-            return startDate...endDate
-        } else if let minDate = lifts.min(by: { $0.date < $1.date })?.date, let maxDate = lifts.max(by: { $0.date < $1.date })?.date {
-            return minDate...maxDate
-        } else {
-            // Fallback range if there are no lifts
-            let now = Date()
-            let startDate = Calendar.current.date(byAdding: .month, value: -6, to: now)!
-            let endDate = Calendar.current.date(byAdding: .month, value: 6, to: now)!
-            return startDate...endDate
-        }
-    }
 }
 
 
