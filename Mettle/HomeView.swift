@@ -24,6 +24,12 @@ struct HomeView: View {
   @State var needsRefresh = false
   @EnvironmentObject var settingsManager: SettingsManager
   let weight: Double = 200.0 // Example weight
+  @State private var isShowering = false
+  @State private var showerTrigger = false  // New state to trigger animations
+  let emojis = Array(repeating: "💪", count: 100)
+  @State private var showWelcomeModal = false
+  @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true // Track first launch
+  
   
   @State private var showErrorAlert = false
   @State private var errorMessage = ""
@@ -66,6 +72,7 @@ struct HomeView: View {
                 ) {
                   LiftTileView(liftType: liftType, specificLifts: specificLifts, maxWeightLift: maxWeightLift)
                 }
+                
               }
             }
           }
@@ -77,16 +84,13 @@ struct HomeView: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search your lifts")
         .toolbar {
           ToolbarItem(placement: .principal) {
-            ZStack(alignment: .center) {
+            Button(action: triggerShower) {
               Image("Logo Header")
                 .resizable()
                 .frame(width: 32, height: 32)
                 .offset(x: 2.5, y: -1)
-              
-              
             }
-            .padding(0)
-            .frame(width: 32, height: 32, alignment: .center)
+            .buttonStyle(PlainButtonStyle())
             .background(
               LinearGradient(
                 stops: [
@@ -98,6 +102,7 @@ struct HomeView: View {
               )
             )
             .cornerRadius(10)
+            .frame(width: 32, height: 32)
             .shadow(color: .black.opacity(0.2), radius: 2.5, x: 0, y: 2)
           }
           
@@ -116,21 +121,19 @@ struct HomeView: View {
         
         VStack {
           Spacer()
-          VStack(spacing: 0) {
-            Divider()
-            //            .frame(height: 0.5)
-            
+          HStack {
             Spacer()
-              .frame(height: 16)
-            VStack {
-              ButtonAddPR(addingPR: $addingPR, needsRefresh: $needsRefresh)
-            }
-            .padding(.horizontal, 16)
+            
+            ButtonAddPR(addingPR: $addingPR, needsRefresh: $needsRefresh)
+            
+            
           }
-          .frame(maxWidth: .infinity)
-          .background(Color("Background"))
+          .padding(.trailing, 32)
         }
       }
+      .overlay(
+        EmojiShowerView(isShowering: $isShowering, emojis: emojis)
+      )
       .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -148,8 +151,15 @@ struct HomeView: View {
       // Replace with your modal view
       SettingsView()
     }
+    .sheet(isPresented: $showWelcomeModal) {
+      WelcomeView(showWelcomeModal: $showWelcomeModal)
+                }
     .onAppear {
       fetchLiftEntries()
+      if isFirstLaunch {
+                          showWelcomeModal = true
+                          isFirstLaunch = false // Mark the first launch as completed
+                      }
     }
     .onChange(of: needsRefresh) { newValue in
       if newValue == true {
@@ -181,6 +191,16 @@ struct HomeView: View {
   
   private func sortLiftEntriesByDate(_ lifts: [LiftEntry]) -> [LiftEntry] {
     lifts.sorted { $0.date < $1.date }
+  }
+  private func triggerShower() {
+    print("Logo tapped")
+//    showerTrigger.toggle()  // Toggle to trigger a new animation
+//    isShowering = true
+//    
+//    // Reset after animation duration
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {  // Slightly longer than animation duration
+//      isShowering = false
+//    }
   }
 }
 
@@ -246,11 +266,10 @@ struct ButtonAddPR: View {
     Button(action: {
       addingPR = true
     }) {
-      Text("Add New PR")
-        .font(.system(size: 17, weight: .bold))
+      Image(systemName: "plus")
+        .font(.system(size: 26, weight: .bold))
         .foregroundColor(Color.white)
-        .frame(maxWidth: .infinity)
-        .frame(height: 56)
+        .frame(width: 80, height: 80)
         .background(
           LinearGradient(
             gradient: Gradient(colors: [Color(hex: "F91F60"), Color(hex: "EC1B80")]),
@@ -258,19 +277,71 @@ struct ButtonAddPR: View {
             endPoint: .trailing
           )
         )
-        .cornerRadius(20)
+        .cornerRadius(40)
     }
     .overlay(
-      RoundedRectangle(cornerRadius: 20)
+      RoundedRectangle(cornerRadius: 40)
         .inset(by: 1) // Adjust by half of the stroke line width
         .stroke(Color("ButtonBorder"), lineWidth: 2)
     )
+    .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 8)
     .sheet(isPresented: $addingPR) {
       AddPRView(addingPR: $addingPR, needsRefresh: $needsRefresh)
     }
   }
 }
 
+struct EmojiShowerView: View {
+  @Binding var isShowering: Bool
+  let emojis: [String]
+  
+  var body: some View {
+    GeometryReader { geometry in
+      ForEach(0..<emojis.count, id: \.self) { index in
+        Text(emojis[index])
+          .font(.system(size: 20))
+          .opacity(opacity(for: index, in: geometry))
+          .position(
+            x: xPosition(for: index, in: geometry),
+            y: yPosition(for: index, in: geometry)
+          )
+          .animation(
+            Animation.timingCurve(0.2, 0.8, 0.8, 1, duration: 1)  // Custom easing for weighty feel
+              .delay(Double(index) * 0.01)  // Slight delay between particles
+              .repeatCount(1, autoreverses: false),
+            value: isShowering
+          )
+      }
+    }
+    .allowsHitTesting(false)
+  }
+  
+  private func xPosition(for index: Int, in geometry: GeometryProxy) -> CGFloat {
+    isShowering ? CGFloat.random(in: 0...geometry.size.width) : geometry.size.width / 2
+  }
+  
+  private func yPosition(for index: Int, in geometry: GeometryProxy) -> CGFloat {
+    if isShowering {
+      return geometry.size.height + 50  // Fall below screen
+    } else {
+      return -50  // Start above screen
+    }
+  }
+  
+  private func opacity(for index: Int, in geometry: GeometryProxy) -> Double {
+    guard isShowering else { return 0 }
+    
+    let progress = Double(index) / Double(emojis.count)
+    // Fade in quickly, maintain full opacity, then fade out
+    if progress < 0.2 {
+      return progress * 5  // Quick fade in
+    } else if progress > 0.8 {
+      return (1 - progress) * 5  // Quick fade out
+    } else {
+      return 1  // Full opacity in the middle
+    }
+  }
+}
 
 
 

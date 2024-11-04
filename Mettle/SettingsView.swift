@@ -9,15 +9,29 @@ import SwiftUI
 
 struct SettingsView: View {
   @EnvironmentObject var settingsManager: SettingsManager
+  @State private var showWelcomeModal = false
   var body: some View {
-      
-      List {
+    
+    List {
+      Section {
         Toggle("Display in Kilograms", isOn: $settingsManager.displayInKilograms)
           .padding()
       }
+      Section {
+        Button(action: {
+          showWelcomeModal = true
+        }) {
+          Text("Show Intro Modal")
+        }
+      }
+      
     }
+    .sheet(isPresented: $showWelcomeModal) {
+      WelcomeView(showWelcomeModal: $showWelcomeModal)
+    }
+  }
 }
 
 #Preview {
-    SettingsView()
+  SettingsView()
 }
